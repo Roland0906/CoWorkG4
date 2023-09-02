@@ -3,6 +3,7 @@ package app.appworks.school.stylish.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import app.appworks.school.stylish.add2cart.Add2cartViewModel
+import app.appworks.school.stylish.coloranalysis.ColorAnalysisViewModel
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.detail.DetailViewModel
@@ -26,6 +27,10 @@ class ProductViewModelFactory(
 
                 isAssignableFrom(Add2cartViewModel::class.java) ->
                     Add2cartViewModel(stylishRepository, product)
+
+                isAssignableFrom(ColorAnalysisViewModel::class.java) ->
+                    ColorAnalysisViewModel(stylishRepository, product)
+
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

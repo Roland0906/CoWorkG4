@@ -52,6 +52,14 @@ class DetailViewModel(
     val navigateToAdd2cart: LiveData<Product>
         get() = _navigateToAdd2cart
 
+    // newly added
+    // Handle navigation to ColorAnalysis
+    private val _navigateToColorAnalysis = MutableLiveData<Product>()
+
+    val navigateToColorAnalysis: LiveData<Product>
+        get() = _navigateToColorAnalysis
+
+
     // Handle leave detail
     private val _leaveDetail = MutableLiveData<Boolean>()
 
@@ -120,6 +128,16 @@ class DetailViewModel(
 
     fun onAdd2cartNavigated() {
         _navigateToAdd2cart.value = null
+    }
+
+
+    // newly added
+    fun navigateToColorAnalysis(product: Product) {
+        _navigateToColorAnalysis.value = product
+    }
+
+    fun onColorAnalysisNavigated() {
+        _navigateToColorAnalysis.value = null
     }
 
     fun leaveDetail() {
