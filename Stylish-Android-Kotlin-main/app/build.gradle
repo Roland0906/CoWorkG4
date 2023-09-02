@@ -17,6 +17,18 @@ android {
         versionName "1.2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    flavorDimensions "ab_testing"
+    productFlavors {
+        A {
+            dimension "ab_testing"
+        }
+
+        B {
+            dimension "ab_testing"
+        }
+    }
+
     buildTypes {
         release {
             buildConfigField("Boolean", "LOGGER_VISIABLE", "false")
