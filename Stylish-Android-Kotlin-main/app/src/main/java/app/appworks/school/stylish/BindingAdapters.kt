@@ -16,6 +16,9 @@ import app.appworks.school.stylish.add2cart.Add2cartSizeAdapter
 import app.appworks.school.stylish.add2cart.Add2cartViewModel
 import app.appworks.school.stylish.cart.CartAdapter
 import app.appworks.school.stylish.catalog.item.CatalogItemAdapter
+import app.appworks.school.stylish.coloranalysis.ColorAnalysisAdapter
+import app.appworks.school.stylish.coloranalysis.ColorAnalysisSizeAdapter
+import app.appworks.school.stylish.coloranalysis.ColorAnalysisViewModel
 import app.appworks.school.stylish.component.ColorSquare
 import app.appworks.school.stylish.component.SelectedSquare
 import app.appworks.school.stylish.data.Color
@@ -84,6 +87,7 @@ fun bindRecyclerViewWithColors(recyclerView: RecyclerView, colors: List<Color>?)
             when (this) {
                 is DetailColorAdapter -> submitList(it)
                 is Add2cartColorAdapter -> submitList(it)
+                is ColorAnalysisAdapter -> submitList(it)
             }
         }
     }
@@ -114,6 +118,22 @@ fun bindAdd2cartSizesRecyclerView(
         }
     }
 }
+
+@BindingAdapter("sizes", "viewModel")
+fun bindAdd2cartSizesRecyclerView(
+    recyclerView: RecyclerView,
+    variants: List<Variant>?,
+    viewModel: ColorAnalysisViewModel
+) {
+    variants?.let {
+        recyclerView.adapter = ColorAnalysisSizeAdapter(viewModel).apply {
+            submitList(it)
+        }
+    }
+}
+
+
+
 
 // Draw Square
 
