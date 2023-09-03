@@ -35,6 +35,8 @@ class ColorAnalysisViewModel (
 
 
     var selectedColorPosition = MutableLiveData<Int>()
+    var selectedColorPosition2 = MutableLiveData<Int>()
+    var selectedColorPosition3 = MutableLiveData<Int>()
 
     val selectedColor = MutableLiveData<Color>()
 
@@ -160,6 +162,24 @@ class ColorAnalysisViewModel (
         selectedColor.value = color
         selectedColorPosition.value = position
     }
+
+    fun selectColor2(color: Color, position: Int) {
+        Logger.w("selectColor=$color, position=$position")
+        selectedVariantPosition.value = null
+        selectedVariant.value = null
+        selectedColor.value = color
+        selectedColorPosition2.value = position
+    }
+
+    fun selectColor3(color: Color, position: Int) {
+        Logger.w("selectColor=$color, position=$position")
+        selectedVariantPosition.value = null
+        selectedVariant.value = null
+        selectedColor.value = color
+        selectedColorPosition3.value = position
+    }
+
+
 
     fun selectSize(variant: Variant, position: Int) {
         Logger.w("selectSize=$variant, position=$position")

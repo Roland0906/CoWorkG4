@@ -32,8 +32,8 @@ class ColorAnalysisFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.recyclerYourHairColorSelector.adapter = ColorAnalysisAdapter(viewModel)
-        binding.recyclerYourSkinColorSelector.adapter = ColorAnalysisAdapter(viewModel)
-        binding.recyclerRecommendColor.adapter = ColorAnalysisAdapter(viewModel)
+        binding.recyclerYourSkinColorSelector.adapter = ColorAnalysisAdapter2(viewModel)
+        binding.recyclerRecommendColor.adapter = ColorAnalysisAdapter3(viewModel)
 
         // test color
         val darkRed = Color("darkRed", "902B0B")

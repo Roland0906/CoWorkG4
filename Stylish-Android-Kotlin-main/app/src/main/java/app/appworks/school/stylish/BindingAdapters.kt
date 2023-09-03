@@ -17,6 +17,8 @@ import app.appworks.school.stylish.add2cart.Add2cartViewModel
 import app.appworks.school.stylish.cart.CartAdapter
 import app.appworks.school.stylish.catalog.item.CatalogItemAdapter
 import app.appworks.school.stylish.coloranalysis.ColorAnalysisAdapter
+import app.appworks.school.stylish.coloranalysis.ColorAnalysisAdapter2
+import app.appworks.school.stylish.coloranalysis.ColorAnalysisAdapter3
 import app.appworks.school.stylish.coloranalysis.ColorAnalysisSizeAdapter
 import app.appworks.school.stylish.coloranalysis.ColorAnalysisViewModel
 import app.appworks.school.stylish.component.ColorSquare
@@ -88,6 +90,8 @@ fun bindRecyclerViewWithColors(recyclerView: RecyclerView, colors: List<Color>?)
                 is DetailColorAdapter -> submitList(it)
                 is Add2cartColorAdapter -> submitList(it)
                 is ColorAnalysisAdapter -> submitList(it)
+                is ColorAnalysisAdapter2 -> submitList(it)
+                is ColorAnalysisAdapter3 -> submitList(it)
             }
         }
     }
