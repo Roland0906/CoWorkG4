@@ -215,7 +215,7 @@ object StylishRemoteDataSource : StylishDataSource {
         eventValue: String,
         splitTesting: String
     ) {
-        StylishApi.retrofitService2.trackUser(contentType,cid,memberId,deviceOs,eventDate,eventTimestamp,eventType,eventValue)
+        StylishApi.retrofitService2.trackUser(contentType,cid,memberId,deviceOs,eventDate,eventTimestamp,eventType,eventValue,splitTesting)
     }
 
     override suspend fun colorPicker(
