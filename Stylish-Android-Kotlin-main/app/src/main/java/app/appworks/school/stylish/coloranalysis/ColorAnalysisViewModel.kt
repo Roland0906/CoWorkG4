@@ -137,6 +137,8 @@ class ColorAnalysisViewModel (
 
 
     val lightBlue = Color("lightBlue", "DDF0FF")
+
+
     var bestColorFromApi = listOf(lightBlue)
 
 

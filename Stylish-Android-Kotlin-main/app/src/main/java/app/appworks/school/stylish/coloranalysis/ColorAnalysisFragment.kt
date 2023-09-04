@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.coloranalysis
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,9 +43,14 @@ class ColorAnalysisFragment : Fragment() {
 
 
         binding.buttonSeeResult.setOnClickListener {
+
             // send api to data
+
+
+
+
             // get color from data to update vm's bestColorFromApi
-//            viewModel.getBestColor(bestColors)
+//            viewModel.getBestColor()
             binding.result.visibility = View.VISIBLE
             binding.recyclerRecommendColor.visibility = View.VISIBLE
             binding.textCaSelectSize.visibility = View.VISIBLE

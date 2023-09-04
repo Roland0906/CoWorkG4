@@ -8,10 +8,11 @@
         <variable name="viewModel" type="app.appworks.school.stylish.coloranalysis.ColorAnalysisViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
             android:id="@+id/layout_add2cart_color"
             android:layout_width="@dimen/size_add2cart_select"
             android:layout_height="@dimen/size_add2cart_select"
+            app:cardCornerRadius="50dp"
             android:clickable="@{!viewHolder2.isSelected}"
             android:onClick="@{() -> viewModel.selectColor2(color, viewHolder2.adapterPosition)}">
 
@@ -28,5 +29,5 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/ic_placeholder"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

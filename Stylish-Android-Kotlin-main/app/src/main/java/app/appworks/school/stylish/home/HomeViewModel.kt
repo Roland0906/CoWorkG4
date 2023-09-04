@@ -3,11 +3,13 @@ package app.appworks.school.stylish.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.HomeItem
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
@@ -15,6 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -114,6 +117,19 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
             _refreshStatus.value = false
         }
     }
+
+
+    fun tracking(type: String) {
+        val cid = UUID.randomUUID().toString()
+
+        viewModelScope.launch {
+            stylishRepository.trackUser(UserManager.contentType, cid, "", "Android", UserManager.date, UserManager.timestamp, type, "hots")
+        }
+    }
+
+
+
+
 
     fun refresh() {
         if (status.value != LoadApiStatus.LOADING) {
