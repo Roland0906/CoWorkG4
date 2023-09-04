@@ -158,6 +158,36 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
         }
     }
 
+    private fun signUpStylish(email: String, password: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+            // It will return Result object after Deferred flow
+            when (val result = stylishRepository.userSignUp("", email, password)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    UserManager.userToken = result.data.userSignIn?.accessToken
+                    _user.value = result.data.userSignIn?.user
+                    _navigateToLoginSuccess.value = user.value
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
+    }
+
     /**
      * Login Stylish by Facebook: Step 1. Register FB Login Callback
      */
@@ -205,6 +235,21 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
 
         loginStylish(email.value ?: "", password.value ?: "")
     }
+
+    fun nativeSignUp() {
+
+        if (email.value.isNullOrEmpty()) {
+            _error.value = getString(R.string.email_cannot_be_empty)
+            return
+        } else if (password.value.isNullOrEmpty()) {
+            _error.value = getString(R.string.password_cannot_be_empty)
+            return
+        }
+
+        signUpStylish(email.value ?: "", password.value ?: "")
+
+    }
+
 
     /**
      * Login Stylish by Facebook: Step 2. Login Facebook

@@ -17,6 +17,7 @@
     <string name="login_native_text">會員帳號登入</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
+    <string name="sign_up_text">註冊 </string>
     <string name="email_cannot_be_empty">Email 不可為空。</string>
     <string name="password_cannot_be_empty">Password 不可為空。</string>
 

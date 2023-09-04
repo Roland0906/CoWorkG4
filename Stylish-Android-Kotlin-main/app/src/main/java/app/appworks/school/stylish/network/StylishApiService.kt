@@ -107,6 +107,7 @@ interface StylishApiService {
 
     @POST("signin")
     suspend fun userSignIn(
+        @Header("Content-Type") type: String = "application/json",
         @Body nativeSignInBody: NativeSignInBody
     ): UserSignInResult
 
@@ -126,6 +127,8 @@ interface StylishApiService {
         @Header("Authorization") token: String,
         @Body orderDetail: OrderDetail
     ): CheckoutOrderResult
+
+
 
 
     @POST("color_picker")

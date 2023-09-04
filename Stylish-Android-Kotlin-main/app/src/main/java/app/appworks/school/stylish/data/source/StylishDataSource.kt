@@ -22,7 +22,7 @@ interface StylishDataSource {
 
     suspend fun userSignIn(email: String, password: String): Result<UserSignInResult>
 
-    suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult>
+    suspend fun userSignUp(name: String?, email: String, password: String): Result<UserSignUpResult>
 
     suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 

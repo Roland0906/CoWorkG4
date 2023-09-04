@@ -37,7 +37,7 @@ class DefaultStylishRepository(
         return stylishRemoteDataSource.userSignIn(email, password)
     }
 
-    override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
+    override suspend fun userSignUp(name: String?, email: String, password: String): Result<UserSignUpResult> {
         return stylishRemoteDataSource.userSignUp(name, email, password)
     }
 

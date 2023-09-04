@@ -108,7 +108,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.userSignIn(
+            val listResult = StylishApi.retrofitService.userSignIn("application/json",
                 NativeSignInBody(
                     email = email,
                     password = password
@@ -126,7 +126,7 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun userSignUp(
-        name: String,
+        name: String?,
         email: String,
         password: String
     ): Result<UserSignUpResult> {
