@@ -18,8 +18,10 @@ import java.util.Date
  * Created by Wayne Chen in Jul. 2019.
  */
 private const val HOST_NAME = "api.appworks-school.tw"
+private const val HOST_NAME2 = "3.113.149.66:8000"
 private const val API_VERSION = "1.0"
 private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
+private const val BASE_URL2 = "http://$HOST_NAME2/api/$API_VERSION/"
 
 //private const val HOST_NAME = "3.113.149.66:8000"
 //private const val API_VERSION = "1.0"
@@ -57,6 +59,13 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .client(client)
     .build()
+
+private val retrofit2 = Retrofit.Builder()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .baseUrl(BASE_URL2)
+    .client(client)
+    .build()
+
 
 
 
@@ -104,12 +113,13 @@ interface StylishApiService {
         @Field("access_token") fbToken: String
     ): UserSignInResult
 
-    @POST("user/signin")
+    @POST("signin") //"user/signin"
     suspend fun userSignIn(
+        @Header("Content-Type") type: String = "application/json",
         @Body nativeSignInBody: NativeSignInBody
     ): UserSignInResult
 
-    @POST("user/signup")
+    @POST("signup") //"user/signup"
     suspend fun userSignUp(
         @Body nativeSignUpBody: NativeSignUpBody
     ): UserSignUpResult
@@ -190,6 +200,7 @@ interface StylishApiService {
  */
 object StylishApi {
     val retrofitService: StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
+    val retrofitService2: StylishApiService by lazy { retrofit2.create(StylishApiService::class.java) }
 }
 
 

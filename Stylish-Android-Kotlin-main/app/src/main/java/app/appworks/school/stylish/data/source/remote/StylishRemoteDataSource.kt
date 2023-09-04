@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.data.source.remote
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.*
@@ -44,7 +45,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getProductList(type = type, paging = paging)
+            val listResult = StylishApi.retrofitService2.getProductList(type = type, paging = paging)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -98,7 +99,7 @@ object StylishRemoteDataSource : StylishDataSource {
             Result.Error(e)
         }
     }
-
+// testing
     override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
 
         if (!isInternetConnected()) {
@@ -107,12 +108,13 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.userSignIn(
+            val listResult = StylishApi.retrofitService2.userSignIn("application/json", //testing here
                 NativeSignInBody(
                     email = email,
                     password = password
                 )
             )
+            Log.i("testAPI","$listResult")
 
             listResult.error?.let {
                 return Result.Fail(it)

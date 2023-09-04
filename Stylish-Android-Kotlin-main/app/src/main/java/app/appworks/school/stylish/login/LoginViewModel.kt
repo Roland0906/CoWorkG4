@@ -128,7 +128,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
         }
     }
 
-    private fun loginStylish(email: String, password: String) {
+    private fun loginStylish(email: String, password: String) { // testing
 
         coroutineScope.launch {
 
