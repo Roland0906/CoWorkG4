@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import app.appworks.school.stylish.data.Color
 import app.appworks.school.stylish.databinding.FragmentColorAnalysisBinding
 import app.appworks.school.stylish.ext.getVmFactory
+import app.appworks.school.stylish.login.UserManager
 
 /**
  * A simple [Fragment] subclass.
@@ -40,6 +41,13 @@ class ColorAnalysisFragment : Fragment() {
         val darkRed = Color("darkRed", "902B0B")
         val orange = Color("orange", "F29A68")
         val bestColors = listOf(darkRed, orange)
+
+
+        Log.i("API Testing1", UserManager.cid)
+        Log.i("API Testing3", UserManager.getSimpleDate())
+        Log.i("API Testing4", UserManager.getTimeStamp().toString())
+        Log.i("API Testing7", viewModel.colorsInString.toString())
+        Log.i("API Testing8", viewModel.jsonFormattedString!!)
 
 
         binding.buttonSeeResult.setOnClickListener {

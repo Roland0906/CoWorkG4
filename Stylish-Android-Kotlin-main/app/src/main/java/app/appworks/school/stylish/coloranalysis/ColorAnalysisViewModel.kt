@@ -23,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.json.JSONArray
 
 class ColorAnalysisViewModel (
     private val stylishRepository: StylishRepository,
@@ -141,9 +142,14 @@ class ColorAnalysisViewModel (
     val milkTea = Color("milkTea","E4AE86")
     val skinColors = listOf(skin, orange, milkTea)
 
+
+    val colorsInString = product.value?.colors?.map { it.code }
+//    val colorsInArray = colorsInString?.toTypedArray()
+    val jsonFormattedString = colorsInString?.joinToString(",", "[", "]") { "\"$it\""}
+
     fun postUserHairSkin(): ColorPickerResult {
         viewModelScope.launch {
-            product.value?.let { stylishRepository.colorPicker(UserManager.cid, "", UserManager.date, UserManager.timestamp, selectedColor.value!!.code, selectedColor2.value!!.code, it.colors) }
+            stylishRepository.colorPicker(UserManager.cid, "", UserManager.getSimpleDate(), UserManager.getTimeStamp(), selectedColor.value!!.code, selectedColor2.value!!.code, jsonFormattedString)
         }
         Log.i("API Testing", ColorPickerResult().toString())
         return ColorPickerResult()
@@ -180,6 +186,9 @@ class ColorAnalysisViewModel (
         selectedVariant.value = null
         selectedColor2.value = color
         selectedColorPosition2.value = position
+
+        Log.i("API Testing5", selectedColor.value!!.code)
+        Log.i("API Testing6", selectedColor2.value!!.code)
     }
 
     fun selectColor3(color: Color, position: Int) {

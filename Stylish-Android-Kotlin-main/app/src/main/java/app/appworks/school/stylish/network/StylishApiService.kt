@@ -129,51 +129,17 @@ interface StylishApiService {
 
 
 
-    @POST("tracking")
-    suspend fun trackUser(
-        @Header("Content-type") contentType: String = "application/json",
-        @Field("cid") cid: String = "",
-        @Field("member_id") memberId: String? = "",
-        @Field("device_os") deviceOs: String = "Android",
-        @Field("event_date") eventDate: Date? = null,
-        @Field("event_timestamp") eventTimestamp: Int = -1,
-        @Field("event_type") eventType: String = "",
-        @Field("event_value") eventValue: String = ""
-
-    )
-
-    // Dong -> a bunch of body -> put header on top
-    // a bunch of body -> need data class
-    // Fields -> no need data class
-    @Headers
-    @POST
-    suspend fun trackUser(
-
-    )
-
-    @Parcelize
-    data class TrackRequest(
-        val cid: String,
-        val memberId: String,
-        val deviceOs: String,
-        val eventDate: Date,
-        val eventTimestamp: Int,
-        val eventType: String,
-        val eventValue: String
-    ) : Parcelable
-
-    @POST("feature/color_picker")
+    @FormUrlEncoded
+    @POST("color_picker")
     suspend fun colorPicker(
         @Field("cid") cid: String = "",
         @Field("member_id") memberId: String? = "",
-        @Field("event_date") eventDate: Date? = null,
+        @Field("event_date") eventDate: String,
         @Field("event_timestamp") eventTimestamp: Int = -1,
         @Field("hair") hair: String = "",
         @Field("skin") eventValue: String = "",
-        @Field("product_colors") productColors: List<Color>
+        @Field("product_colors") productColors: String?
     ) : ColorPickerResult
-
-
 
 
 }

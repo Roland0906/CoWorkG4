@@ -37,7 +37,7 @@ interface StylishRepository {
 
     suspend fun clearProductInCart()
 
-    suspend fun trackUser(contentType: String, cid: String, memberId: String?, deviceOs: String, eventDate: Date, eventTimestamp: Int, eventType: String, eventValue: String)
 
-    suspend fun colorPicker(cid: String, memberId: String?, eventDate: Date?, eventTimestamp: Int, hair: String, skin: String, productColors: List<Color>)
+
+    suspend fun colorPicker(cid: String, memberId: String?, eventDate: String, eventTimestamp: Int, hair: String, skin: String, productColors: String?): ColorPickerResult
 }

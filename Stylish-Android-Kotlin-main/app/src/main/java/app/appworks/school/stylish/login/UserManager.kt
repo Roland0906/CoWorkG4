@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.login
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,6 +9,7 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.util.Util.getString
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.UUID
 
@@ -55,19 +57,22 @@ object UserManager {
         get() = userToken != null
 
     val contentType: String = "application/json"
-    var date = Date()
-    var timestamp = System.currentTimeMillis().toInt()
+
     val cid = UUID.randomUUID().toString()
 
     var uuid = ""
 
-//    fun getDate(): Date {
-//        return Date()
-//    }
-//
-//    fun getTimeStamp(): Int {
-//        System.currentTimeMillis().toInt()
-//    }
+    fun getSimpleDate(): String {
+        val currentDate = Date()
+        val dataFormat = SimpleDateFormat("yyyy-MM-dd")
+        val formattedDate = dataFormat.format(currentDate).toString()
+        Log.i("API Testing3", formattedDate)
+        return formattedDate
+    }
+
+    fun getTimeStamp(): Int {
+        return System.currentTimeMillis().toInt()
+    }
 
 
 

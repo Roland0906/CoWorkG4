@@ -202,30 +202,19 @@ object StylishRemoteDataSource : StylishDataSource {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun trackUser(
-        contentType: String,
-        cid: String,
-        memberId: String?,
-        deviceOs: String,
-        eventDate: Date,
-        eventTimestamp: Int,
-        eventType: String,
-        eventValue: String
-    ) {
 
-    }
 
     override suspend fun colorPicker(
         cid: String,
         memberId: String?,
-        eventDate: Date?,
+        eventDate: String,
         eventTimestamp: Int,
         hair: String,
         skin: String,
-        productColors: List<Color>
+        productColors: String?
     ): ColorPickerResult {
         return StylishApi.retrofitService.colorPicker(
-            cid, memberId,eventDate,eventTimestamp, hair, skin, productColors
+            cid, memberId, eventDate, eventTimestamp, hair, skin, productColors
         )
     }
 

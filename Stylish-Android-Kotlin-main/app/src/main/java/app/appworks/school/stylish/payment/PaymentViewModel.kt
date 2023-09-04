@@ -16,6 +16,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import tech.cherri.tpdirect.api.*
+import tech.cherri.tpdirect.callback.dto.TPDCardInfoDto
+import tech.cherri.tpdirect.callback.dto.TPDMerchantReferenceInfoDto
 import tech.cherri.tpdirect.model.TPDStatus
 
 /**
@@ -264,8 +266,8 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
     }
 
     // it will occur when get prime success
-    private val tpdTokenSuccessCallback = { token: String, _: TPDCardInfo, _: String ->
-        checkout(token)
+    private val tpdTokenSuccessCallback = { prime: String, cardInfo: TPDCardInfoDto, cardIdentifier: String, merchantReferenceInfo: TPDMerchantReferenceInfoDto ->
+        checkout(prime)
     }
 
     // it will occur when get prime failure

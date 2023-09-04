@@ -83,28 +83,17 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         }
     }
 
-    override suspend fun trackUser(
-        contentType: String,
-        cid: String,
-        memberId: String?,
-        deviceOs: String,
-        eventDate: Date,
-        eventTimestamp: Int,
-        eventType: String,
-        eventValue: String
-    ) {
-        TODO("Not yet implemented")
-    }
+
 
     override suspend fun colorPicker(
         cid: String,
         memberId: String?,
-        eventDate: Date?,
+        eventDate: String,
         eventTimestamp: Int,
         hair: String,
-        eventValue: String,
-        productColors: List<Color>
-    ) {
+        skin: String,
+        productColors: String?
+    ): ColorPickerResult {
         TODO("Not yet implemented")
     }
 }

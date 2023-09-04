@@ -71,30 +71,19 @@ class DefaultStylishRepository(
         stylishLocalDataSource.clearProductInCart()
     }
 
-    override suspend fun trackUser(
-        contentType: String,
-        cid: String,
-        memberId: String?,
-        deviceOs: String,
-        eventDate: Date,
-        eventTimestamp: Int,
-        eventType: String,
-        eventValue: String
-    ) {
-        stylishRemoteDataSource.trackUser(contentType, cid, memberId, deviceOs, eventDate, eventTimestamp, eventType, eventValue)
-    }
+
 
 
     override suspend fun colorPicker(
         cid: String,
         memberId: String?,
-        eventDate: Date?,
+        eventDate: String,
         eventTimestamp: Int,
         hair: String,
         skin: String,
-        productColors: List<Color>
-    ) {
-        stylishRemoteDataSource.colorPicker(cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
+        productColors: String?
+    ): ColorPickerResult {
+        return stylishRemoteDataSource.colorPicker(cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
     }
 
 }
