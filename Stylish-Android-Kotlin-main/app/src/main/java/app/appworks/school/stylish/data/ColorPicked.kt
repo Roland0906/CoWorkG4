@@ -7,7 +7,5 @@ import java.util.Date
 
 @Parcelize
 data class ColorPicked(
-    val cid: String,
-    val memberId: String?,
     @Json(name = "recommend_color") val recommendColor: String,
 ): Parcelable

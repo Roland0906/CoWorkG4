@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import retrofit2.http.Body
 import java.util.Date
 
 /**
@@ -74,16 +75,20 @@ class DefaultStylishRepository(
 
 
 
-    override suspend fun colorPicker(
-        cid: String,
-        memberId: String?,
-        eventDate: String,
-        eventTimestamp: Int,
-        hair: String,
-        skin: String,
-        productColors: String?
-    ): ColorPickerResult {
-        return stylishRemoteDataSource.colorPicker(cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
+//    override suspend fun colorPicker(
+//        cid: String,
+//        memberId: String?,
+//        eventDate: String,
+//        eventTimestamp: Int,
+//        hair: String,
+//        skin: String,
+//        productColors: String?
+//    ): ColorPickerResult {
+//        return stylishRemoteDataSource.colorPicker(cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
+//    }
+
+    override suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult {
+        return stylishRemoteDataSource.colorPicker(request)
     }
 
 }

@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import app.appworks.school.stylish.data.Color
 import app.appworks.school.stylish.databinding.FragmentColorAnalysisBinding
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.login.UserManager
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -19,7 +22,11 @@ import app.appworks.school.stylish.login.UserManager
  */
 class ColorAnalysisFragment : Fragment() {
 
-    private val viewModel by viewModels <ColorAnalysisViewModel> { getVmFactory(ColorAnalysisFragmentArgs.fromBundle(requireArguments()).productKey)}
+    private val viewModel by viewModels<ColorAnalysisViewModel> {
+        getVmFactory(
+            ColorAnalysisFragmentArgs.fromBundle(requireArguments()).productKey
+        )
+    }
 
     private lateinit var binding: FragmentColorAnalysisBinding
 
@@ -44,21 +51,18 @@ class ColorAnalysisFragment : Fragment() {
 
 
         Log.i("API Testing1", UserManager.cid)
-        Log.i("API Testing3", UserManager.getSimpleDate())
+        Log.i("API Testing3", UserManager.getDate())
         Log.i("API Testing4", UserManager.getTimeStamp().toString())
         Log.i("API Testing7", viewModel.colorsInString.toString())
-        Log.i("API Testing8", viewModel.jsonFormattedString!!)
+        Log.i("API Testing8", viewModel.jsonString)
 
 
         binding.buttonSeeResult.setOnClickListener {
 
+            lifecycleScope.launch {
+                viewModel.postUserHairSkin()
+            }
             // send api to data
-            val resultColor = viewModel.postUserHairSkin().data?.recommendColor?.let { it1 ->
-                Color("the color", it1)}
-            val colorResult = listOf(resultColor)
-            // get color from data to update vm's bestColorFromApi
-            viewModel.getBestColor(colorResult)
-
 
             binding.result.visibility = View.VISIBLE
             binding.recyclerRecommendColor.visibility = View.VISIBLE

@@ -62,7 +62,7 @@ object UserManager {
 
     var uuid = ""
 
-    fun getSimpleDate(): String {
+    fun getDate(): String {
         val currentDate = Date()
         val dataFormat = SimpleDateFormat("yyyy-MM-dd")
         val formattedDate = dataFormat.format(currentDate).toString()

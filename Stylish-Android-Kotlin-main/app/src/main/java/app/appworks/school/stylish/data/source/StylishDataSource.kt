@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import retrofit2.http.Body
 import java.util.Date
 
 /**
@@ -39,5 +40,7 @@ interface StylishDataSource {
 
 
 
-    suspend fun colorPicker(cid: String, memberId: String?, eventDate: String, eventTimestamp: Int, hair: String, skin: String, productColors: String?): ColorPickerResult
+//    suspend fun colorPicker(cid: String, memberId: String?, eventDate: String, eventTimestamp: Int, hair: String, skin: String, productColors: String?): ColorPickerResult
+
+    suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult
 }

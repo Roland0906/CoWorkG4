@@ -204,18 +204,22 @@ object StylishRemoteDataSource : StylishDataSource {
 
 
 
-    override suspend fun colorPicker(
-        cid: String,
-        memberId: String?,
-        eventDate: String,
-        eventTimestamp: Int,
-        hair: String,
-        skin: String,
-        productColors: String?
-    ): ColorPickerResult {
-        return StylishApi.retrofitService.colorPicker(
-            cid, memberId, eventDate, eventTimestamp, hair, skin, productColors
-        )
+//    override suspend fun colorPicker(
+//        cid: String,
+//        memberId: String?,
+//        eventDate: String,
+//        eventTimestamp: Int,
+//        hair: String,
+//        skin: String,
+//        productColors: String?
+//    ): ColorPickerResult {
+//        return StylishApi.retrofitService.colorPicker(
+//            cid, memberId, eventDate, eventTimestamp, hair, skin, productColors
+//        )
+//    }
+
+    override suspend fun colorPicker(request: ColorPickerRequest): ColorPickerResult {
+        return StylishApi.retrofitService.colorPicker(request)
     }
 
 }

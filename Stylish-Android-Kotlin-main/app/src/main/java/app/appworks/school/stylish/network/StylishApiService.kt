@@ -105,12 +105,12 @@ interface StylishApiService {
         @Field("access_token") fbToken: String
     ): UserSignInResult
 
-    @POST("user/signin")
+    @POST("signin")
     suspend fun userSignIn(
         @Body nativeSignInBody: NativeSignInBody
     ): UserSignInResult
 
-    @POST("user/signup")
+    @POST("signup")
     suspend fun userSignUp(
         @Body nativeSignUpBody: NativeSignUpBody
     ): UserSignUpResult
@@ -128,18 +128,8 @@ interface StylishApiService {
     ): CheckoutOrderResult
 
 
-
-    @FormUrlEncoded
     @POST("color_picker")
-    suspend fun colorPicker(
-        @Field("cid") cid: String = "",
-        @Field("member_id") memberId: String? = "",
-        @Field("event_date") eventDate: String,
-        @Field("event_timestamp") eventTimestamp: Int = -1,
-        @Field("hair") hair: String = "",
-        @Field("skin") eventValue: String = "",
-        @Field("product_colors") productColors: String?
-    ) : ColorPickerResult
+    suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult
 
 
 }
