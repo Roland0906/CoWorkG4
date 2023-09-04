@@ -141,18 +141,18 @@ interface StylishApiService {
     ): CheckoutOrderResult
 
 
-
+    @FormUrlEncoded
     @POST("tracking")
     suspend fun trackUser(
         @Header("Content-type") contentType: String = "application/json",
         @Field("cid") cid: String = "",
         @Field("member_id") memberId: String? = "",
         @Field("device_os") deviceOs: String = "Android",
-        @Field("event_date") eventDate: Date? = null,
+        @Field("event_date") eventDate: String = "",
         @Field("event_timestamp") eventTimestamp: Int = -1,
         @Field("event_type") eventType: String = "",
-        @Field("event_value") eventValue: String = ""
-
+        @Field("event_value") eventValue: String = "",
+        @Field("split_testing") splitTesting: String = ""
     )
 
     // Dong -> a bunch of body -> put header on top
@@ -179,7 +179,7 @@ interface StylishApiService {
     suspend fun colorPicker(
         @Field("cid") cid: String = "",
         @Field("member_id") memberId: String? = "",
-        @Field("event_date") eventDate: Date? = null,
+        @Field("event_date") eventDate: String = "",
         @Field("event_timestamp") eventTimestamp: Int = -1,
         @Field("hair") hair: String = "",
         @Field("skin") eventValue: String = "",

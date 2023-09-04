@@ -37,7 +37,8 @@ interface StylishDataSource {
 
     suspend fun clearProductInCart()
 
-    suspend fun trackUser(contentType: String, cid: String, memberId: String?, deviceOs: String, eventDate: Date, eventTimestamp: Int, eventType: String, eventValue: String)
+    suspend fun trackUser(contentType: String, cid: String, memberId: String?, deviceOs: String, eventDate: String, eventTimestamp: Int, eventType: String, eventValue: String, splitTesting: String)
 
-    suspend fun colorPicker(cid: String, memberId: String?, eventDate: Date?, eventTimestamp: Int, hair: String, skin: String, productColors: List<Color>): ColorPickerResult
+    suspend fun colorPicker(cid: String, memberId: String?, eventDate: String, eventTimestamp: Int, hair: String, skin: String, productColors: List<Color>): ColorPickerResult
+
 }

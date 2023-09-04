@@ -123,7 +123,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
         // memberId -> get its unique ID saved when user first signed up
         viewModelScope.launch {
-            stylishRepository.trackUser(UserManager.contentType, UserManager.cid, "", "Android", UserManager.date, UserManager.timestamp, type, "hots")
+            stylishRepository.trackUser(UserManager.contentType, UserManager.cid, "", "Android", UserManager.getDate(), UserManager.getTimeStamp(), type, "hots","fresh")
         }
     }
 

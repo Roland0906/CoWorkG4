@@ -8,6 +8,7 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.util.Util.getString
+import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.UUID
 
@@ -56,8 +57,7 @@ object UserManager {
         get() = userToken != null
 
     val contentType: String = "application/json"
-    var date = Date()
-    var timestamp = System.currentTimeMillis().toInt()
+
     val cid = UUID.randomUUID().toString()
 
     var uuid = ""
@@ -105,5 +105,13 @@ object UserManager {
                 challengeCount++
             }
         }
+    }
+    fun getTimeStamp(): Int{
+        return System.currentTimeMillis().toInt()
+    }
+    fun getDate():String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val currentDate = Date()
+        return dateFormat.format(currentDate)
     }
 }

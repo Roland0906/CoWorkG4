@@ -88,10 +88,11 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         cid: String,
         memberId: String?,
         deviceOs: String,
-        eventDate: Date,
+        eventDate: String,
         eventTimestamp: Int,
         eventType: String,
-        eventValue: String
+        eventValue: String,
+        splitTesting: String
     ) {
         TODO("Not yet implemented")
     }
@@ -99,7 +100,7 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
     override suspend fun colorPicker(
         cid: String,
         memberId: String?,
-        eventDate: Date?,
+        eventDate: String,
         eventTimestamp: Int,
         hair: String,
         eventValue: String,

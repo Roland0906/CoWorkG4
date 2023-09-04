@@ -143,7 +143,7 @@ class ColorAnalysisViewModel (
 
     fun postUserHairSkin(): ColorPickerResult {
         viewModelScope.launch {
-            product.value?.let { stylishRepository.colorPicker(UserManager.cid, "", UserManager.date, UserManager.timestamp, selectedColor.value!!.code, selectedColor2.value!!.code, it.colors) }
+            product.value?.let { stylishRepository.colorPicker(UserManager.cid, "", UserManager.getDate(), UserManager.getTimeStamp(), selectedColor.value!!.code, selectedColor2.value!!.code, it.colors) }
         }
         Log.i("API Testing", ColorPickerResult().toString())
         return ColorPickerResult()
