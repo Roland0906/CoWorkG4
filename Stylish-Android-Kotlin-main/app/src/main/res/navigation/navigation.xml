@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/navigation"
-        app:startDestination="@+id/homeFragment">
+        app:startDestination="@+id/tinderFragment">
 
     <fragment
             android:id="@+id/homeFragment"
@@ -16,6 +16,12 @@
             android:name="app.appworks.school.stylish.catalog.CatalogFragment"
             android:label="CatalogFragment"
             tools:layout="@layout/fragment_catalog"></fragment>
+
+    <fragment
+            android:id="@+id/tinderFragment"
+            android:name="app.appworks.school.stylish.tinder.TinderFragment"
+            android:label="TinderFragment">
+    </fragment>
 
     <fragment
             android:id="@+id/cartFragment"
@@ -64,6 +70,16 @@
             android:name="app.appworks.school.stylish.checkout.CheckoutSuccessFragment"
             android:label="CheckoutSuccessFragment"
             tools:layout="@layout/fragment_checkout_success" />
+
+    <fragment android:id="@+id/tinderSuccessFragment"
+            android:name="app.appworks.school.stylish.tinder.TinderSuccessFragment"
+            android:label="TinderSuccessFragment"
+            tools:layout="@layout/fragment_tinder_success"/>
+
+    <fragment android:id="@+id/tinderSuccessFragment"
+            android:name="app.appworks.school.stylish.tinder.TinderSuccessFragment"
+            android:label="TinderSuccessFragment"
+            tools:layout="@layout/fragment_tinder_success"/>
 
     <dialog
             android:id="@+id/loginDialog"
@@ -133,6 +149,14 @@
             android:id="@+id/navigate_to_checkout_success_fragment"
             app:destination="@id/checkoutSuccessFragment"
             app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true"/>
+    <action android:id="@+id/navigate_to_tinder_success_fragment" app:destination="@id/tinderSuccessFragment"/>
+    <action android:id="@+id/navigate_to_tinder_fragment" app:destination="@id/tinderFragment"/>
+    <action android:id="@+id/navigate_to_detail_fragment" app:destination="@id/detailFragment"/>
+    <action android:id="@+id/navigate_to_login_dialog" app:destination="@id/loginDialog"/>
+    <action android:id="@+id/navigate_to_message_dialog" app:destination="@id/messageDialog"/>
+    <action android:id="@+id/navigate_to_add2cart_dialog" app:destination="@id/add2cartDialog"/>
+
             app:popUpToInclusive="true" />
     <action
             android:id="@+id/navigate_to_detail_fragment"

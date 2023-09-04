@@ -210,6 +210,8 @@ class MainActivity : BaseActivity() {
                 R.id.detailFragment -> CurrentFragmentType.DETAIL
                 R.id.paymentFragment -> CurrentFragmentType.PAYMENT
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
+                R.id.tinderFragment -> CurrentFragmentType.TINDER
+                R.id.tinderSuccessFragment -> CurrentFragmentType.TINDER_SUCCESS
                 else -> viewModel.currentFragmentType.value
             }
         }
