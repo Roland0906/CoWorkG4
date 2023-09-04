@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.NavigationDirections
 import app.appworks.school.stylish.databinding.FragmentHomeBinding
 import app.appworks.school.stylish.ext.getVmFactory
+import java.util.UUID
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -31,6 +33,14 @@ class HomeFragment : Fragment() {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+
+        // post tracker api when user gets into Home page
+        viewModel.tracking("view")
+
+
+
+
+
 
         binding.recyclerHome.adapter = HomeAdapter(
             HomeAdapter.OnClickListener {

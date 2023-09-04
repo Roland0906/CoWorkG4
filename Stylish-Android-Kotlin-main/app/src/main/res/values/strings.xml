@@ -60,6 +60,17 @@
     <string name="select_amount">選擇數量</string>
     <string name="stock_not_enough">庫存不足</string>
 
+    <!-- Color Analysis -->
+    <string name="toRecommendColor">為您分析適合的商品顏色</string>
+    <string name="analysisResult">這個顏色和你是絕配！</string>
+    <string name="your_hair_color">您的髮色</string>
+    <string name="your_skin_color">您的膚色</string>
+    <string name="see_result">看看分析結果吧</string>
+    <string name="result">這個顏色跟你是絕配！</string>
+
+
+
+
     <!-- Cart -->
     <string name="goto_checkout">前往結帳</string>
     <string name="remove">移除</string>
@@ -117,4 +128,6 @@
     <string name="morning">morning</string>
     <string name="afternoon">afternoon</string>
     <string name="anytime">anytime</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

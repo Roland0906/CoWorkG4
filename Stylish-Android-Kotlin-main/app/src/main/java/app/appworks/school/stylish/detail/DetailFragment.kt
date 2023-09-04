@@ -13,6 +13,7 @@ import app.appworks.school.stylish.NavigationDirections
 import app.appworks.school.stylish.databinding.FragmentDetailBinding
 import app.appworks.school.stylish.ext.getVmFactory
 
+
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
@@ -73,6 +74,19 @@ class DetailFragment : Fragment() {
                 }
             }
         )
+
+        // newly added
+        viewModel.navigateToColorAnalysis.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToColorAnalysisFragment(it))
+                    viewModel.onColorAnalysisNavigated()
+                }
+            }
+        )
+
+
 
         viewModel.leaveDetail.observe(
             viewLifecycleOwner,

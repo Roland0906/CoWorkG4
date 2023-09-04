@@ -8,6 +8,8 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.util.Util.getString
+import java.time.LocalDate
+import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -16,6 +18,7 @@ object UserManager {
 
     private const val USER_DATA = "user_data"
     private const val USER_TOKEN = "user_token"
+
 
     private val _user = MutableLiveData<User>()
 
@@ -51,6 +54,11 @@ object UserManager {
 
     val isLoggedIn: Boolean
         get() = userToken != null
+
+    val contentType: String = "application/json"
+    var date = Date()
+    var timestamp = System.currentTimeMillis().toInt()
+
 
     /**
      * Clear the [userToken] and the [user]/[_user] data

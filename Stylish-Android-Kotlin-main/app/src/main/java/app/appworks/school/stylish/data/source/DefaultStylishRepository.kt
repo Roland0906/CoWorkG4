@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -69,4 +70,18 @@ class DefaultStylishRepository(
     override suspend fun clearProductInCart() {
         stylishLocalDataSource.clearProductInCart()
     }
+
+    override suspend fun trackUser(
+        contentType: String,
+        cid: String,
+        memberId: String?,
+        deviceOs: String,
+        eventData: Date,
+        eventTimestamp: Int,
+        eventType: String,
+        eventValue: String
+    ) {
+
+    }
+
 }

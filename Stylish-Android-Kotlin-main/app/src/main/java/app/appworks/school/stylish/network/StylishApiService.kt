@@ -1,15 +1,18 @@
 package app.appworks.school.stylish.network
 
+import android.os.Parcelable
 import app.appworks.school.stylish.BuildConfig
 import app.appworks.school.stylish.data.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
+import kotlinx.parcelize.Parcelize
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.*
+import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -18,10 +21,18 @@ private const val HOST_NAME = "api.appworks-school.tw"
 private const val API_VERSION = "1.0"
 private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
 
+//private const val HOST_NAME = "3.113.149.66:8000"
+//private const val API_VERSION = "1.0"
+//private const val BASE_URL = "http://$HOST_NAME/api/$API_VERSION/"
+
+
 /**
  * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
  * full Kotlin compatibility.
  */
+
+
+
 internal val moshi = Moshi.Builder()
     .addLast(KotlinJsonAdapterFactory())
     .build()
@@ -46,6 +57,8 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .client(client)
     .build()
+
+
 
 /**
  * A public interface that exposes the [getMarketingHots], [getProductList], [getUserProfile],
@@ -112,6 +125,64 @@ interface StylishApiService {
         @Header("Authorization") token: String,
         @Body orderDetail: OrderDetail
     ): CheckoutOrderResult
+
+
+
+    @POST("tracking")
+    suspend fun trackUser(
+        @Header("Content-type") contentType: String = "application/json",
+        @Field("cid") cid: String = "",
+        @Field("member_id") memberId: String? = "",
+        @Field("device_os") deviceOs: String = "Android",
+        @Field("event_date") eventDate: Date? = null,
+        @Field("event_timestamp") eventTimestamp: Int = -1,
+        @Field("event_type") eventType: String = "",
+        @Field("event_value") eventValue: String = ""
+
+    ): TrackRequest
+
+    // Dong -> a bunch of body -> put header on top
+    // a bunch of body -> need data class
+    // Fields -> no need data class
+    @Headers
+    @POST
+    suspend fun trackUser(
+
+    )
+
+    @Parcelize
+    data class TrackRequest(
+        val cid: String,
+        val memberId: String,
+        val deviceOs: String,
+        val eventDate: Date,
+        val eventTimestamp: Int,
+        val eventType: String,
+        val eventValue: String
+    ) : Parcelable
+
+    @POST("feature/color_picker")
+    suspend fun colorPicker(
+        @Field("cid") cid: String = "",
+        @Field("member_id") memberId: String? = "",
+        @Field("event_date") eventDate: Date? = null,
+        @Field("event_timestamp") eventTimestamp: Int = -1,
+        @Field("hair") hair: String = "",
+        @Field("skin") eventValue: String = ""
+    ) : ColorPickerRequest
+
+    @Parcelize
+    data class ColorPickerRequest(
+        val cid: String,
+        val memberId: String,
+        val eventDate: Date,
+        val eventTimestamp: Int,
+        val hair: String,
+        val skin: String
+    ) : Parcelable
+
+
+
 }
 
 /**
@@ -120,3 +191,5 @@ interface StylishApiService {
 object StylishApi {
     val retrofitService: StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
 }
+
+
