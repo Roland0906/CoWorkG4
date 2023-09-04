@@ -48,12 +48,14 @@ object UserManager {
     /**
      * It can be use to check login status directly
      */
+
     val isLoggedIn: Boolean
         get() = userToken != null
 
     /**
      * Clear the [userToken] and the [user]/[_user] data
      */
+
     fun clear() {
         userToken = null
         _user.value = null
@@ -66,6 +68,7 @@ object UserManager {
     /**
      * Winter is coming
      */
+
     fun challenge() {
         if (System.currentTimeMillis() - lastChallengeTime > 5000) {
             lastChallengeTime = System.currentTimeMillis()
