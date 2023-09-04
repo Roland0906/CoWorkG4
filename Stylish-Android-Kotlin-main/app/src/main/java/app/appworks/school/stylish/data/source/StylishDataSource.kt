@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -35,4 +36,8 @@ interface StylishDataSource {
     suspend fun removeProductInCart(id: Long, colorCode: String, size: String)
 
     suspend fun clearProductInCart()
+
+    suspend fun trackUser(contentType: String, cid: String, memberId: String?, deviceOs: String, eventDate: Date, eventTimestamp: Int, eventType: String, eventValue: String)
+
+    suspend fun colorPicker(cid: String, memberId: String?, eventDate: Date?, eventTimestamp: Int, hair: String, skin: String, productColors: List<Color>): ColorPickerResult
 }

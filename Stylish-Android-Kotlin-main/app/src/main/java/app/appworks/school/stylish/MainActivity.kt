@@ -36,6 +36,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -64,6 +65,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        UserManager.uuid = UUID.randomUUID().toString()
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             val slideUp = ObjectAnimator.ofFloat(

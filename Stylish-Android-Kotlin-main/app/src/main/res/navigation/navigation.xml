@@ -72,10 +72,6 @@
             tools:layout="@layout/fragment_checkout_success" />
 
 
-    <fragment android:id="@+id/tinderSuccessFragment"
-            android:name="app.appworks.school.stylish.tinder.TinderSuccessFragment"
-            android:label="TinderSuccessFragment"
-            tools:layout="@layout/fragment_tinder_success"/>
 
     <dialog
             android:id="@+id/loginDialog"
@@ -157,5 +153,9 @@
     <action
             android:id="@+id/navigate_to_color_analysis_fragment"
             app:destination="@id/colorAnalysisFragment" />
+    <fragment
+            android:id="@+id/tinderSuccessFragment"
+            android:name="app.appworks.school.stylish.tinder.TinderSuccessFragment"
+            android:label="TinderSuccessFragment" />
 
 </navigation>

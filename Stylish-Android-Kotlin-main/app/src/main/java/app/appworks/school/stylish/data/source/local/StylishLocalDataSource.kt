@@ -5,6 +5,7 @@ import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -80,5 +81,30 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         withContext(Dispatchers.IO) {
             dao.clear()
         }
+    }
+
+    override suspend fun trackUser(
+        contentType: String,
+        cid: String,
+        memberId: String?,
+        deviceOs: String,
+        eventDate: Date,
+        eventTimestamp: Int,
+        eventType: String,
+        eventValue: String
+    ) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun colorPicker(
+        cid: String,
+        memberId: String?,
+        eventDate: Date?,
+        eventTimestamp: Int,
+        hair: String,
+        eventValue: String,
+        productColors: List<Color>
+    ): ColorPickerResult {
+        TODO("Not yet implemented")
     }
 }

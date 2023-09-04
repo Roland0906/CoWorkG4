@@ -9,6 +9,7 @@ import app.appworks.school.stylish.network.StylishApi
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import app.appworks.school.stylish.util.Util.isInternetConnected
+import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -126,7 +127,11 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 
-    override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
+    override suspend fun userSignUp(
+        name: String,
+        email: String,
+        password: String
+    ): Result<UserSignUpResult> {
 
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
@@ -198,4 +203,32 @@ object StylishRemoteDataSource : StylishDataSource {
     override suspend fun clearProductInCart() {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
+
+    override suspend fun trackUser(
+        contentType: String,
+        cid: String,
+        memberId: String?,
+        deviceOs: String,
+        eventDate: Date,
+        eventTimestamp: Int,
+        eventType: String,
+        eventValue: String
+    ) {
+
+    }
+
+    override suspend fun colorPicker(
+        cid: String,
+        memberId: String?,
+        eventDate: Date?,
+        eventTimestamp: Int,
+        hair: String,
+        skin: String,
+        productColors: List<Color>
+    ): ColorPickerResult {
+        return StylishApi.retrofitService.colorPicker(
+            cid, memberId,eventDate,eventTimestamp, hair, skin, productColors
+        )
+    }
+
 }

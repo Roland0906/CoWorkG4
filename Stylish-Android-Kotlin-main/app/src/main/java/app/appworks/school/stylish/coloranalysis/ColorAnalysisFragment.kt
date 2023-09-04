@@ -45,12 +45,13 @@ class ColorAnalysisFragment : Fragment() {
         binding.buttonSeeResult.setOnClickListener {
 
             // send api to data
-
-
-
-
+            val resultColor = viewModel.postUserHairSkin().data?.recommendColor?.let { it1 ->
+                Color("the color", it1)}
+            val colorResult = listOf(resultColor)
             // get color from data to update vm's bestColorFromApi
-//            viewModel.getBestColor()
+            viewModel.getBestColor(colorResult)
+
+
             binding.result.visibility = View.VISIBLE
             binding.recyclerRecommendColor.visibility = View.VISIBLE
             binding.textCaSelectSize.visibility = View.VISIBLE
