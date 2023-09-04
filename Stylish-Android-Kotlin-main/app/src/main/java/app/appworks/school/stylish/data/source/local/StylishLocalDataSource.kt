@@ -104,7 +104,7 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         eventTimestamp: Int,
         hair: String,
         eventValue: String,
-        productColors: List<Color>
+        productColors: String?
     ): ColorPickerResult {
         TODO("Not yet implemented")
     }

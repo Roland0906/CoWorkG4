@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.login
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -61,16 +62,6 @@ object UserManager {
     val cid = UUID.randomUUID().toString()
 
     var uuid = ""
-
-//    fun getDate(): Date {
-//        return Date()
-//    }
-//
-//    fun getTimeStamp(): Int {
-//        System.currentTimeMillis().toInt()
-//    }
-
-
 
     /**
      * Clear the [userToken] and the [user]/[_user] data

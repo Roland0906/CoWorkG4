@@ -119,6 +119,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
     }
 
 
+
     fun tracking(type: String) {
 
         // memberId -> get its unique ID saved when user first signed up
@@ -126,7 +127,6 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
             stylishRepository.trackUser(UserManager.contentType, UserManager.cid, "", "Android", UserManager.getDate(), UserManager.getTimeStamp(), type, "hots","fresh")
         }
     }
-
 
 
     fun refresh() {

@@ -217,7 +217,6 @@ object StylishRemoteDataSource : StylishDataSource {
     ) {
         StylishApi.retrofitService2.trackUser(contentType,cid,memberId,deviceOs,eventDate,eventTimestamp,eventType,eventValue,splitTesting)
     }
-
     override suspend fun colorPicker(
         cid: String,
         memberId: String?,
@@ -225,11 +224,10 @@ object StylishRemoteDataSource : StylishDataSource {
         eventTimestamp: Int,
         hair: String,
         skin: String,
-        productColors: List<Color>
+        productColors: String?
     ): ColorPickerResult {
         return StylishApi.retrofitService.colorPicker(
-            cid, memberId,eventDate,eventTimestamp, hair, skin, productColors
-        )
+            cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
     }
 
 }

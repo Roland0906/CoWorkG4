@@ -35,7 +35,9 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
 
         // post tracker api when user gets into Home page
+
 //        viewModel.tracking("view")
+
 
 
 

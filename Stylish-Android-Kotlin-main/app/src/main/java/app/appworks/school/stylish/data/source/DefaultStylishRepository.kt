@@ -85,7 +85,6 @@ class DefaultStylishRepository(
         stylishRemoteDataSource.trackUser(contentType, cid, memberId, deviceOs, eventDate, eventTimestamp, eventType, eventValue, splitTesting)
     }
 
-
     override suspend fun colorPicker(
         cid: String,
         memberId: String?,
@@ -93,9 +92,9 @@ class DefaultStylishRepository(
         eventTimestamp: Int,
         hair: String,
         skin: String,
-        productColors: List<Color>
-    ) {
-        stylishRemoteDataSource.colorPicker(cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
+        productColors: String?
+    ): ColorPickerResult {
+        return stylishRemoteDataSource.colorPicker(cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
     }
 
 }
