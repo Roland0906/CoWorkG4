@@ -3,6 +3,7 @@ package app.appworks.school.stylish.network
 import android.os.Parcelable
 import app.appworks.school.stylish.BuildConfig
 import app.appworks.school.stylish.data.*
+import com.squareup.moshi.Json
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
@@ -17,13 +18,13 @@ import java.util.Date
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
-private const val HOST_NAME = "api.appworks-school.tw"
-private const val API_VERSION = "1.0"
-private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
-
-//private const val HOST_NAME = "3.113.149.66:8000"
+//private const val HOST_NAME = "api.appworks-school.tw"
 //private const val API_VERSION = "1.0"
-//private const val BASE_URL = "http://$HOST_NAME/api/$API_VERSION/"
+//private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
+
+private const val HOST_NAME = "3.113.149.66:8000"
+private const val API_VERSION = "1.0"
+private const val BASE_URL = "http://$HOST_NAME/api/$API_VERSION/"
 
 
 /**
@@ -139,7 +140,7 @@ interface StylishApiService {
         @Field("event_type") eventType: String = "",
         @Field("event_value") eventValue: String = ""
 
-    ): TrackRequest
+    )
 
     // Dong -> a bunch of body -> put header on top
     // a bunch of body -> need data class
@@ -168,18 +169,10 @@ interface StylishApiService {
         @Field("event_date") eventDate: Date? = null,
         @Field("event_timestamp") eventTimestamp: Int = -1,
         @Field("hair") hair: String = "",
-        @Field("skin") eventValue: String = ""
-    ) : ColorPickerRequest
+        @Field("skin") eventValue: String = "",
+        @Field("product_colors") productColors: List<Color>
+    ) : ColorPickerResult
 
-    @Parcelize
-    data class ColorPickerRequest(
-        val cid: String,
-        val memberId: String,
-        val eventDate: Date,
-        val eventTimestamp: Int,
-        val hair: String,
-        val skin: String
-    ) : Parcelable
 
 
 

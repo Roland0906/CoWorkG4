@@ -120,14 +120,12 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
 
     fun tracking(type: String) {
-        val cid = UUID.randomUUID().toString()
 
+        // memberId -> get its unique ID saved when user first signed up
         viewModelScope.launch {
-            stylishRepository.trackUser(UserManager.contentType, cid, "", "Android", UserManager.date, UserManager.timestamp, type, "hots")
+            stylishRepository.trackUser(UserManager.contentType, UserManager.cid, "", "Android", UserManager.date, UserManager.timestamp, type, "hots")
         }
     }
-
-
 
 
 

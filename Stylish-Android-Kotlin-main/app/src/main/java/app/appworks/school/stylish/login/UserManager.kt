@@ -8,8 +8,8 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.util.Util.getString
-import java.time.LocalDate
 import java.util.Date
+import java.util.UUID
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -57,6 +57,18 @@ object UserManager {
     val contentType: String = "application/json"
     var date = Date()
     var timestamp = System.currentTimeMillis().toInt()
+    val cid = UUID.randomUUID().toString()
+
+    var uuid = ""
+
+//    fun getDate(): Date {
+//        return Date()
+//    }
+//
+//    fun getTimeStamp(): Int {
+//        System.currentTimeMillis().toInt()
+//    }
+
 
 
     /**
