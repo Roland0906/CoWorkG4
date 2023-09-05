@@ -19,6 +19,7 @@ class TinderSuccessFragment: Fragment() {
     ): View {
 
         val binding = FragmentTinderSuccessBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
         binding.keepBrowsing.setOnClickListener {
             viewModel.tracking("click","tinder_keep_shopping")
             findNavController().navigate(NavigationDirections.navigateToHomeFragment())
