@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -36,6 +37,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -64,6 +66,10 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
+        UserManager.uuid = UUID.randomUUID().toString()
+
+        Log.i("testUser","${UserManager.getTimeStamp()}")
+        Log.i("testUser","${UserManager.getDate()}")
 
         splashScreen.setOnExitAnimationListener { splashScreenView ->
             val slideUp = ObjectAnimator.ofFloat(
@@ -210,6 +216,8 @@ class MainActivity : BaseActivity() {
                 R.id.detailFragment -> CurrentFragmentType.DETAIL
                 R.id.paymentFragment -> CurrentFragmentType.PAYMENT
                 R.id.checkoutSuccessFragment -> CurrentFragmentType.CHECKOUT_SUCCESS
+                R.id.tinderFragment -> CurrentFragmentType.TINDER
+                R.id.tinderSuccessFragment -> CurrentFragmentType.TINDER_SUCCESS
                 else -> viewModel.currentFragmentType.value
             }
         }

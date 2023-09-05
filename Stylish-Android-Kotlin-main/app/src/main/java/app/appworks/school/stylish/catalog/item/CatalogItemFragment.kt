@@ -49,7 +49,6 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
                 MaterialTheme {
                     val pagingItems = viewModel.catalog.collectAsLazyPagingItems()
                     val state = rememberSwipeRefreshState(false)
-
                     SwipeRefresh(
                         modifier = Modifier.fillMaxSize(),
                         state = state,
@@ -71,6 +70,7 @@ class CatalogItemFragment(private val catalogType: CatalogTypeFilter) : Fragment
                                 else -> {}
                             }
                             CatalogItemScreen(pagingItems) {
+                                viewModel.tracking("click")
                                 findNavController().navigate(NavigationDirections.navigateToDetailFragment(it))
                             }
                         }

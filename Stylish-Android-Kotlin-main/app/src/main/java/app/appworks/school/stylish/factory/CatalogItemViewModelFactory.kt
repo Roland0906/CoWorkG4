@@ -13,13 +13,14 @@ import app.appworks.school.stylish.data.source.StylishRepository
  */
 @Suppress("UNCHECKED_CAST")
 class CatalogItemViewModelFactory(
-    private val catalogType: CatalogTypeFilter
+    private val catalogType: CatalogTypeFilter,
+    private val stylishRepository: StylishRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>) =
         with(modelClass) {
             when {
                 isAssignableFrom(CatalogItemViewModel::class.java) ->
-                    CatalogItemViewModel(catalogType)
+                    CatalogItemViewModel(catalogType, stylishRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

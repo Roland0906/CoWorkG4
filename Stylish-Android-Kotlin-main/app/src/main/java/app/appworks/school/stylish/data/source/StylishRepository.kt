@@ -2,6 +2,9 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import retrofit2.http.Body
+import app.appworks.school.stylish.network.StylishApiService
+import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -10,7 +13,7 @@ import app.appworks.school.stylish.data.*
  */
 interface StylishRepository {
 
-    suspend fun getMarketingHots(): Result<List<HomeItem>>
+    suspend fun getMarketingHots(style: String): Result<List<HomeItem>>
 
     suspend fun getProductList(type: String, paging: String? = null): Result<ProductListResult>
 
@@ -18,11 +21,11 @@ interface StylishRepository {
 
     suspend fun userSignIn(fbToken: String): Result<UserSignInResult>
 
-    suspend fun userSignIn(email: String, password: String): Result<UserSignInResult>
+    suspend fun userSignIn(email: String, password: String): UserSignIn?
 
-    suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult>
+    suspend fun userSignUp(name: String?, email: String, password: String): Result<UserSignUpResult>
 
-    suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
+    suspend fun checkoutOrder(type: String, token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>
 
@@ -35,4 +38,16 @@ interface StylishRepository {
     suspend fun removeProductInCart(id: Long, colorCode: String, size: String)
 
     suspend fun clearProductInCart()
+
+
+    suspend fun trackUser(contentType: String, trackUserBody: StylishApiService.TrackUserBody)
+
+
+
+
+
+
+
+
+    suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult
 }

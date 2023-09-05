@@ -40,6 +40,7 @@ class Add2cartDialog : AppCompatDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel.tracking("view")
 
         binding = DialogAdd2cartBinding.inflate(inflater, container, false)
         binding.layoutAdd2cart.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_slide_up))
