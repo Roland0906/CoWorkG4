@@ -1,5 +1,9 @@
 package app.appworks.school.stylish.detail
 
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.RectShape
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,7 +26,13 @@ class DetailFragment : Fragment() {
     /**
      * Lazily initialize our [DetailViewModel].
      */
-    private val viewModel by viewModels<DetailViewModel> { getVmFactory(DetailFragmentArgs.fromBundle(requireArguments()).productKey) }
+    private val viewModel by viewModels<DetailViewModel> {
+        getVmFactory(
+            DetailFragmentArgs.fromBundle(
+                requireArguments()
+            ).productKey
+        )
+    }
 
 //    private var previousCurrentFragmentType: CurrentFragmentType? = null
 
@@ -60,7 +70,8 @@ class DetailFragment : Fragment() {
             viewModel.snapPosition.observe(
                 viewLifecycleOwner,
                 Observer {
-                    (binding.recyclerDetailCircles.adapter as DetailCircleAdapter).selectedPosition.value = (it % product.images.size)
+                    (binding.recyclerDetailCircles.adapter as DetailCircleAdapter).selectedPosition.value =
+                        (it % product.images.size)
                 }
             )
         }
@@ -80,7 +91,11 @@ class DetailFragment : Fragment() {
             viewLifecycleOwner,
             Observer {
                 it?.let {
-                    findNavController().navigate(NavigationDirections.navigateToColorAnalysisFragment(it))
+                    findNavController().navigate(
+                        NavigationDirections.navigateToColorAnalysisFragment(
+                            it
+                        )
+                    )
                     viewModel.onColorAnalysisNavigated()
                 }
             }
@@ -96,6 +111,16 @@ class DetailFragment : Fragment() {
                 }
             }
         )
+
+
+        val viewWithGradient = binding.layoutColorAnalysis
+        val colors = intArrayOf (0xFFFFA500.toInt(), 0xFFA52A2A.toInt())
+        val gradientDrawable = GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, colors)
+        val whiteShapeDrawable = ShapeDrawable(RectShape())
+        whiteShapeDrawable.paint.color = 0xFFFFFFFF.toInt()
+        val layers = arrayOf(whiteShapeDrawable, gradientDrawable)
+        val layerDrawable = LayerDrawable(layers)
+        viewWithGradient.background = layerDrawable
 
         return binding.root
     }
