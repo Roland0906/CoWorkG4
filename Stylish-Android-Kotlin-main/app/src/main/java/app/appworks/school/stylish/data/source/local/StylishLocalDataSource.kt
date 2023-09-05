@@ -36,7 +36,7 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
     }
 
     override suspend fun userSignUp(
-        name: String,
+        name: String?,
         email: String,
         password: String
     ): Result<UserSignUpResult> {
@@ -44,6 +44,7 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
     }
 
     override suspend fun checkoutOrder(
+        type: String,
         token: String,
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
@@ -91,15 +92,7 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         TODO("Not yet implemented")
     }
 
-    override suspend fun colorPicker(
-        cid: String,
-        memberId: String?,
-        eventDate: String,
-        eventTimestamp: Int,
-        hair: String,
-        eventValue: String,
-        productColors: String?
-    ): ColorPickerResult {
+    override suspend fun colorPicker(request: ColorPickerRequest): ColorPickerResult {
         TODO("Not yet implemented")
     }
 }

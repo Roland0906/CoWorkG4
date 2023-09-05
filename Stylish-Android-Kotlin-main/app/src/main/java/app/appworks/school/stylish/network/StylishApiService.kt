@@ -24,7 +24,6 @@ private const val API_VERSION = "1.0"
 private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
 private const val BASE_URL2 = "http://$HOST_NAME2/api/$API_VERSION/"
 
-
 //private const val HOST_NAME = "3.113.149.66:8000"
 //private const val HOST_NAME = "api.appworks-school.tw"
 //private const val API_VERSION = "1.0"
@@ -80,7 +79,7 @@ interface StylishApiService {
      * Returns a Coroutine [Deferred] [MarketingHotsResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "marketing/hots" endpoint will be requested with the GET HTTP method
      */
-    @GET("marketing/hots")
+    @GET("products/style?style=a") // not working, original -> "marketing/hots
     suspend fun getMarketingHots(): MarketingHotsResult
 
     @GET("products/style")
@@ -105,7 +104,7 @@ interface StylishApiService {
      * The @GET annotation indicates that the "user/profile" endpoint will be requested with the GET HTTP method
      * The @Header annotation indicates that it will be added "Authorization" header
      */
-    @GET("user/profile")
+    @GET("profile") // "user/profile"
     suspend fun getUserProfile(@Header("Authorization") token: String): UserProfileResult
     /**
      * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
@@ -120,13 +119,14 @@ interface StylishApiService {
         @Field("access_token") fbToken: String
     ): UserSignInResult
 
+
     @POST("signin") //"user/signin"
     suspend fun userSignIn(
         @Header("Content-Type") type: String = "application/json",
         @Body nativeSignInBody: NativeSignInBody
     ): UserSignIn?
 
-    @POST("signup") //"user/signup"
+    @POST("signup")
     suspend fun userSignUp(
         @Body nativeSignUpBody: NativeSignUpBody
     ): UserSignUpResult
@@ -139,9 +139,19 @@ interface StylishApiService {
      */
     @POST("order/checkout")
     suspend fun checkoutOrder(
+        @Header("Content-Type") type: String = "application/json",
         @Header("Authorization") token: String,
         @Body orderDetail: OrderDetail
     ): CheckoutOrderResult
+
+
+
+
+
+    // Dong -> a bunch of body -> put header on top
+    // a bunch of body -> need data class
+    // Fields -> no need data class
+
 
 
 
@@ -168,24 +178,8 @@ interface StylishApiService {
 
 
 
-    // Dong -> a bunch of body -> put header on top
-    // a bunch of body -> need data class
-    // Fields -> no need data class
-
-
-
-
-    @FormUrlEncoded
     @POST("color_picker")
-    suspend fun colorPicker(
-        @Field("cid") cid: String = "",
-        @Field("member_id") memberId: String? = "",
-        @Field("event_date") eventDate: String = "",
-        @Field("event_timestamp") eventTimestamp: Int = -1,
-        @Field("hair") hair: String = "",
-        @Field("skin") eventValue: String = "",
-        @Field("product_colors") productColors: String?
-    ) : ColorPickerResult
+    suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult
 
 
 }

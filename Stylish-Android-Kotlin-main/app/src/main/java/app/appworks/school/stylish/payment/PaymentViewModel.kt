@@ -97,7 +97,8 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
 
     var tpdCard: TPDCard? = null
 
-    private var isCanGetPrime: Boolean = false
+    //    private var isCanGetPrime: Boolean = false
+    private var isCanGetPrime: Boolean = true
 
     var tpdErrorMessage: String = ""
 
@@ -180,19 +181,31 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
     }
     fun prepareCheckout() {
 
+        postOrderCheckout(
+//            UserManager.userToken!!,
+            "test_user_token",
+            OrderDetail(products.value.toOrderProductList())
+        )
+
+
+
         tracking("click")
+        
         when {
             name.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_NAME_EMPTY
-            email.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_EMAIL_EMPTY
-            phone.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_PHONE_EMPTY
-            address.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_ADDRESS_EMPTY
-            shippingTime.isEmpty() -> _invalidCheckout.value = INVALID_FORMAT_TIME_EMPTY
-            paymentMethod.value == PaymentMethod.CASH_ON_DELIVERY -> _invalidCheckout.value = NOT_SUPPORT_CASH_ON_DELIVERY
+//            email.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_EMAIL_EMPTY
+//            phone.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_PHONE_EMPTY
+//            address.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_ADDRESS_EMPTY
+//            shippingTime.isEmpty() -> _invalidCheckout.value = INVALID_FORMAT_TIME_EMPTY
+//            paymentMethod.value == PaymentMethod.CASH_ON_DELIVERY -> _invalidCheckout.value =
+//                NOT_SUPPORT_CASH_ON_DELIVERY
+
             !isCanGetPrime -> _invalidCheckout.value = CREDIT_CART_FORMAT_INCORRECT
             isCanGetPrime -> {
                 _status.value = LoadApiStatus.LOADING
                 tpdCard?.getPrime()
             }
+
             else -> _invalidCheckout.value = NO_ONE_KNOWS
         }
     }
@@ -202,40 +215,60 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
      * Checkout the order when everything is ready, but we still have to check the user login status haha
      * @param prime: The prime key is the token from [TPDCard]
      */
+//    fun checkout(prime: String) {
+//        when (UserManager.isLoggedIn) {
+//            true -> {
+//                UserManager.userToken?.let {
+//                    postOrderCheckout(
+//                        it,
+//                        OrderDetail(
+//                            prime,
+//                            Order(
+//                                "delivery",
+//                                "credit_card",
+//                                totalPrice.value ?: 0,
+//                                totalFreight.value ?: 0,
+//                                totalOrderPrice.value ?: 0,
+//                                Recipient(
+//                                    name.value ?: "",
+//                                    phone.value ?: "",
+//                                    email.value ?: "",
+//                                    address.value ?: "",
+//                                    shippingTime
+//                                ),
+//                                products.value.toOrderProductList()
+//                            )
+//                        )
+//                    )
+//                }
+//            }
+//            else -> {
+//                _navigateToLogin.value = true
+//                _status.value = LoadApiStatus.DONE
+//            }
+//        }
+//    }
+
 
     fun checkout(prime: String) {
         when (UserManager.isLoggedIn) {
             true -> {
+
                 UserManager.userToken?.let {
                     postOrderCheckout(
                         it,
-                        OrderDetail(
-                            prime,
-                            Order(
-                                "delivery",
-                                "credit_card",
-                                totalPrice.value ?: 0,
-                                totalFreight.value ?: 0,
-                                totalOrderPrice.value ?: 0,
-                                Recipient(
-                                    name.value ?: "",
-                                    phone.value ?: "",
-                                    email.value ?: "",
-                                    address.value ?: "",
-                                    shippingTime
-                                ),
-                                products.value.toOrderProductList()
-                            )
-                        )
+                        OrderDetail(products.value.toOrderProductList())
                     )
                 }
             }
+
             else -> {
                 _navigateToLogin.value = true
                 _status.value = LoadApiStatus.DONE
             }
         }
     }
+
 
     fun onCheckoutCompleted() {
         _checkoutSuccess.value = null
@@ -252,7 +285,7 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = stylishRepository.checkoutOrder(token, orderDetail)
+            val result = stylishRepository.checkoutOrder("application/json", token, orderDetail)
 
             _checkoutSuccess.value = when (result) {
                 is Result.Success -> {
@@ -261,17 +294,20 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
                     _status.value = LoadApiStatus.DONE
                     result.data
                 }
+
                 is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
                     _invalidCheckout.value = CHECKOUT_FAIL
                     null
                 }
+
                 is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
+
                 else -> {
                     _error.value = getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
@@ -319,17 +355,22 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
         )
 
         tpdErrorMessage = getString(R.string.tpd_general_error)
-        isCanGetPrime = false
+        isCanGetPrime = true
+
+//        isCanGetPrime = false
 
         tpdForm.setTextErrorColor(getColor(R.color.red_d0021b))
         tpdForm.setOnFormUpdateListener { tpdStatus ->
             when {
                 tpdStatus.cardNumberStatus == TPDStatus.STATUS_ERROR ->
                     tpdErrorMessage = getString(R.string.tpd_card_number_error)
+
                 tpdStatus.expirationDateStatus == TPDStatus.STATUS_ERROR ->
                     tpdErrorMessage = getString(R.string.tpd_expiration_date_error)
+
                 tpdStatus.ccvStatus == TPDStatus.STATUS_ERROR ->
                     tpdErrorMessage = getString(R.string.tpd_ccv_error)
+
                 !tpdStatus.isCanGetPrime ->
                     tpdErrorMessage = getString(R.string.tpd_general_error)
             }

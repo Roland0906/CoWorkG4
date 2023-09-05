@@ -441,6 +441,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
 <!--                android:clickable="@{viewModel.status == LoadApiStatus.LOADING ? false : true}"-->
+
                 <ProgressBar
                         android:id="@+id/progress_payment_checkout"
                         android:layout_width="@dimen/size_payment_progress"

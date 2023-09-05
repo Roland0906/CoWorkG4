@@ -29,6 +29,7 @@ object StylishRemoteDataSource : StylishDataSource {
             // this will run on a thread managed by Retrofit
             val listResult = StylishApi.retrofitService2.getMarketingHotsStyle(style)
 
+
             listResult.error?.let {
                 return Result.Fail(it)
             }
@@ -68,11 +69,11 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getUserProfile(token)
+            val listResult = StylishApi.retrofitService2.getUserProfile(token)
 
-            listResult.error?.let {
-                return Result.Fail(it)
-            }
+//            listResult.error?.let {
+//                return Result.Fail(it)
+//            }
             listResult.user?.let {
                 return Result.Success(it)
             }
@@ -91,7 +92,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.userSignIn(fbToken = fbToken)
+            val listResult = StylishApi.retrofitService2.userSignIn(fbToken = fbToken)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -113,7 +114,7 @@ object StylishRemoteDataSource : StylishDataSource {
         }
 
     override suspend fun userSignUp(
-        name: String,
+        name: String?,
         email: String,
         password: String
     ): Result<UserSignUpResult> {
@@ -143,6 +144,7 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun checkoutOrder(
+        type: String,
         token: String,
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
@@ -153,7 +155,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.checkoutOrder(token, orderDetail)
+            val listResult = StylishApi.retrofitService2.checkoutOrder("application/json", token, orderDetail)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -195,17 +197,10 @@ object StylishRemoteDataSource : StylishDataSource {
     ) {
         StylishApi.retrofitService2.trackUser(contentType, trackUserBody)
     }
-    override suspend fun colorPicker(
-        cid: String,
-        memberId: String?,
-        eventDate: String,
-        eventTimestamp: Int,
-        hair: String,
-        skin: String,
-        productColors: String?
-    ): ColorPickerResult {
-        return StylishApi.retrofitService.colorPicker(
-            cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
+
+    override suspend fun colorPicker(request: ColorPickerRequest): ColorPickerResult {
+        return StylishApi.retrofitService2.colorPicker(request)
     }
+    
 
 }

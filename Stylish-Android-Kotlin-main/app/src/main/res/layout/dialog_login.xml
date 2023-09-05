@@ -165,7 +165,7 @@
                     android:fontFamily="@font/noto_sans"
                     android:gravity="center"
                     android:letterSpacing="0.15"
-                    android:onClick="@{() -> viewModel.nativeLogin()}"
+                    android:onClick="@{() -> viewModel.nativeSignUp()}"
                     android:text='@{viewModel.status != LoadApiStatus.LOADING ? @string/sign_up_text : ""}'
                     android:textAllCaps="false"
                     android:textColor="@color/white"

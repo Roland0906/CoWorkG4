@@ -6,6 +6,7 @@ import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.network.StylishApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import retrofit2.http.Body
 import java.util.Date
 
 /**
@@ -38,15 +39,16 @@ class DefaultStylishRepository(
         return stylishRemoteDataSource.userSignIn(email, password)
     }
 
-    override suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult> {
+    override suspend fun userSignUp(name: String?, email: String, password: String): Result<UserSignUpResult> {
         return stylishRemoteDataSource.userSignUp(name, email, password)
     }
 
     override suspend fun checkoutOrder(
+        type: String,
         token: String,
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
-        return stylishRemoteDataSource.checkoutOrder(token, orderDetail)
+        return stylishRemoteDataSource.checkoutOrder(type, token, orderDetail)
     }
 
     override fun getProductsInCart(): LiveData<List<Product>> {
@@ -80,16 +82,8 @@ class DefaultStylishRepository(
         stylishRemoteDataSource.trackUser(contentType, trackUserBody)
     }
 
-    override suspend fun colorPicker(
-        cid: String,
-        memberId: String?,
-        eventDate: String,
-        eventTimestamp: Int,
-        hair: String,
-        skin: String,
-        productColors: String?
-    ): ColorPickerResult {
-        return stylishRemoteDataSource.colorPicker(cid, memberId, eventDate, eventTimestamp, hair, skin, productColors)
+    override suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult {
+        return stylishRemoteDataSource.colorPicker(request)
     }
 
 }

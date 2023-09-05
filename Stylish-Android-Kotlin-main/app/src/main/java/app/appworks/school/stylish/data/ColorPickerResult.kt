@@ -6,5 +6,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ColorPickerResult(
-    @Json(name = "data") val data: ColorPicked? = null
+    val data: ColorPicked? = null
 ) : Parcelable

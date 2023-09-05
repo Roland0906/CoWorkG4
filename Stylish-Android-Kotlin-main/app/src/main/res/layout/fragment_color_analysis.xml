@@ -163,7 +163,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-                        android:background="@android:color/system_accent1_400"
+                        android:background="@drawable/header_background"
                         android:letterSpacing="0.15"
                         android:text="@string/see_result"
                         android:textColor="@color/white"
@@ -180,10 +180,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:layout_marginStart="16dp"
                     android:letterSpacing="0.3"
                     android:text="@string/result"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/layout_color_analysis" />
 
@@ -192,7 +192,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginStart="165dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
                     android:orientation="horizontal"
@@ -213,7 +213,7 @@
                     android:id="@+id/text_ca_select_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/noto_sans"
@@ -223,7 +223,6 @@
                     android:textSize="14sp"
                     android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recycler_recommend_color" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -231,7 +230,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginStart="108dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:orientation="horizontal"
                     android:visibility="gone"

@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import retrofit2.http.Body
 import app.appworks.school.stylish.network.StylishApiService
 import java.util.Date
 
@@ -22,9 +23,9 @@ interface StylishDataSource {
 
     suspend fun userSignIn(email: String, password: String): UserSignIn?
 
-    suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult>
+    suspend fun userSignUp(name: String?, email: String, password: String): Result<UserSignUpResult>
 
-    suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
+    suspend fun checkoutOrder(type: String, token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>
 
@@ -40,5 +41,7 @@ interface StylishDataSource {
 
     suspend fun trackUser(contentType: String, trackUserBody: StylishApiService.TrackUserBody)
 
-    suspend fun colorPicker(cid: String, memberId: String?, eventDate: String, eventTimestamp: Int, hair: String, skin: String, productColors: String?): ColorPickerResult
+
+
+    suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult
 }
