@@ -70,9 +70,9 @@ object StylishRemoteDataSource : StylishDataSource {
             // this will run on a thread managed by Retrofit
             val listResult = StylishApi.retrofitService2.getUserProfile(token)
 
-            listResult.error?.let {
-                return Result.Fail(it)
-            }
+//            listResult.error?.let {
+//                return Result.Fail(it)
+//            }
             listResult.user?.let {
                 return Result.Success(it)
             }

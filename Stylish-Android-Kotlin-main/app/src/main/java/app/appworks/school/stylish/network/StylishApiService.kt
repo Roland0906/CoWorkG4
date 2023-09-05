@@ -97,7 +97,7 @@ interface StylishApiService {
      * The @GET annotation indicates that the "user/profile" endpoint will be requested with the GET HTTP method
      * The @Header annotation indicates that it will be added "Authorization" header
      */
-    @GET("user/profile")
+    @GET("profile") // "user/profile"
     suspend fun getUserProfile(@Header("Authorization") token: String): UserProfileResult
     /**
      * Returns a Coroutine [Deferred] [UserSignInResult] which can be fetched with await() if in a Coroutine scope.
