@@ -39,17 +39,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import app.appworks.school.stylish.R
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.NavigationDirections
+import app.appworks.school.stylish.ext.getVmFactory
+import app.appworks.school.stylish.home.HomeViewModel
+import app.appworks.school.stylish.login.UserManager
 
 class TinderFragment : Fragment() {
+    private val viewModel by viewModels<TinderViewModel> { getVmFactory() }
+
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val swipeResults = mutableListOf<Int>()
+        val mapOfResults:MutableMap<String, Int> = mutableMapOf("A" to 0, "B" to 0, "C" to 0)
+
+        viewModel.tracking("view","tinder")
+
         return ComposeView(requireContext()).apply {
             setContent {
                 TinderCloneTheme {
@@ -72,18 +82,32 @@ class TinderFragment : Fragment() {
                             ) {
                                 if (!isEmpty) {
                                     CardStack(
-                                        swipeResults = swipeResults,
+                                        swipeResults = mapOfResults,
                                         items = accounts,
+                                        styles = styles,
                                         onEmptyStack = {
                                             isEmpty = true
                                         }
                                     )
                                 } else {
                                     Text(text = "No more cards", fontWeight = FontWeight.Bold)
+
                                     //post api to submit the outcomes
                                     //get the outcome from api and then
+                                    Log.i("tinder", "$mapOfResults")
+                                    var maxMap = Pair("A",0)
+                                    for(map in mapOfResults){
+                                        if(map.value > maxMap.second){
+                                            maxMap = Pair(map.key, map.value)
+                                            if (mapOfResults["B"] == mapOfResults["C"] && mapOfResults["B"] == 1 && mapOfResults["A"] == 0) {
+                                                maxMap = Pair("A", 0)
+                                            }
+                                        }
+                                    }
+                                    UserManager.marketingStyle = maxMap.first
+                                    Log.i("tinder", "$maxMap")
                                     findNavController().navigate(NavigationDirections.navigateToTinderSuccessFragment())
-                                    Log.i("tinder", "$swipeResults")
+
                                 }
                             }
                             if (showOverlay) {
@@ -151,19 +175,39 @@ class TinderFragment : Fragment() {
 
     private val accounts = mutableListOf(
         Item(
-            "https://images.unsplash.com/photo-1668069574922-bca50880fd70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-            "Musician",
-            "Alice (25)"
+            "https://api.appworks-school.tw/assets/201807201824/main.jpg",
+            "",
+            ""
         ),
         Item(
-            "https://images.unsplash.com/photo-1618641986557-1ecd230959aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-            "Developer",
-            "Chris (33)"
+            "https://api.appworks-school.tw/assets/201807202150/main.jpg",
+            "",
+            ""
         ),
         Item(
-            "https://images.unsplash.com/photo-1667935764607-73fca1a86555?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
-            "Teacher",
-            "Roze (22)"
+            "https://api.appworks-school.tw/assets/201807202157/main.jpg",
+            "",
+            ""
+        ),
+        Item(
+            "https://api.appworks-school.tw/assets/201807242234/main.jpg",
+            "",
+            ""
         )
     )
+    private val styles = mutableListOf("A", "B", "C", "A")
 }
+
+//Item("https://images.unsplash.com/photo-1668069574922-bca50880fd70?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+//"Musician",
+//"Alice (25)"),
+//Item(
+//"https://images.unsplash.com/photo-1618641986557-1ecd230959aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+//"Developer",
+//"Chris (33)"
+//),
+//Item(
+//"https://images.unsplash.com/photo-1667935764607-73fca1a86555?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=688&q=80",
+//"Teacher",
+//"Roze (22)"
+//)

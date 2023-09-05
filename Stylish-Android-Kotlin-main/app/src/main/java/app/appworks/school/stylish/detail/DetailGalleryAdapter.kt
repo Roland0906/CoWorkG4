@@ -3,6 +3,7 @@ package app.appworks.school.stylish.detail
 import android.app.Activity
 import android.content.Context
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -22,6 +23,7 @@ class DetailGalleryAdapter : RecyclerView.Adapter<DetailGalleryAdapter.ImageView
     class ImageViewHolder(private var binding: ItemDetailGalleryBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(context: Context, imageUrl: String) {
+            Log.i("detailFragment","On bind: $imageUrl")
 
             imageUrl.let {
                 binding.imageUrl = it
@@ -72,6 +74,7 @@ class DetailGalleryAdapter : RecyclerView.Adapter<DetailGalleryAdapter.ImageView
      */
     fun submitImages(images: List<String>) {
         this.images = images
+        Log.i("detailFragment","submitImages: $images")
         notifyDataSetChanged()
     }
 }

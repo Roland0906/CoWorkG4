@@ -35,7 +35,9 @@ class HomeFragment : Fragment() {
         binding.viewModel = viewModel
 
         // post tracker api when user gets into Home page
-        viewModel.tracking("view")
+
+        viewModel.tracking("view","hots")
+
 
 
 
@@ -44,6 +46,7 @@ class HomeFragment : Fragment() {
 
         binding.recyclerHome.adapter = HomeAdapter(
             HomeAdapter.OnClickListener {
+                viewModel.tracking("click","tinder_product_image")
                 viewModel.navigateToDetail(it)
             }
         )

@@ -1,6 +1,7 @@
 package app.appworks.school.stylish.login
 
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,8 +9,9 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.util.Util.getString
-import java.time.LocalDate
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.UUID
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -51,17 +53,26 @@ object UserManager {
     /**
      * It can be use to check login status directly
      */
+
     val isLoggedIn: Boolean
         get() = userToken != null
 
     val contentType: String = "application/json"
-    var date = Date()
-    var timestamp = System.currentTimeMillis().toInt()
 
+    val cid = UUID.randomUUID().toString()
+
+    var uuid = ""
+
+    var split_testing = "fashionable"
+
+    var member_id = null
+
+    var marketingStyle = "A"
 
     /**
      * Clear the [userToken] and the [user]/[_user] data
      */
+
     fun clear() {
         userToken = null
         _user.value = null
@@ -74,6 +85,7 @@ object UserManager {
     /**
      * Winter is coming
      */
+
     fun challenge() {
         if (System.currentTimeMillis() - lastChallengeTime > 5000) {
             lastChallengeTime = System.currentTimeMillis()
@@ -90,5 +102,13 @@ object UserManager {
                 challengeCount++
             }
         }
+    }
+    fun getTimeStamp(): Int{
+        return System.currentTimeMillis().toInt()
+    }
+    fun getDate():String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val currentDate = Date()
+        return dateFormat.format(currentDate)
     }
 }

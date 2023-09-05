@@ -1,8 +1,10 @@
 package app.appworks.school.stylish.profile
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.component.ProfileAvatarOutlineProvider
 import app.appworks.school.stylish.data.Result
@@ -10,6 +12,7 @@ import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import kotlinx.coroutines.CoroutineScope
@@ -77,6 +80,29 @@ class ProfileViewModel(
         if (user.value == null) {
             UserManager.userToken?.let {
                 getUserProfile(it)
+            }
+        }
+    }
+    fun tracking(type: String) {
+        // memberId -> get its unique ID saved when user first signed up
+        viewModelScope.launch {
+            try{
+                stylishRepository.trackUser(
+                    UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        "profile",
+                        UserManager.split_testing
+                    )
+                )
+            }
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
             }
         }
     }

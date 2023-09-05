@@ -1,26 +1,34 @@
 package app.appworks.school.stylish.coloranalysis
 
 import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import androidx.databinding.InverseMethod
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.Color
+import app.appworks.school.stylish.data.ColorPickerRequest
+import app.appworks.school.stylish.data.ColorPickerResult
 import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Variant
 import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.login.UserManager
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import org.json.JSONArray
 
-class ColorAnalysisViewModel (
+class ColorAnalysisViewModel(
     private val stylishRepository: StylishRepository,
     private val arguments: Product
 ) : ViewModel() {
@@ -39,12 +47,14 @@ class ColorAnalysisViewModel (
     var selectedColorPosition3 = MutableLiveData<Int>()
 
     val selectedColor = MutableLiveData<Color>()
+    val selectedColor2 = MutableLiveData<Color>()
+    val selectedColor3 = MutableLiveData<Color>()
 
     var selectedVariantPosition = MutableLiveData<Int>()
 
     var selectedVariant = MutableLiveData<Variant>()
 
-    val variantsBySelectedColor: LiveData<List<Variant>?> = selectedColor.map { color ->
+    val variantsBySelectedColor: LiveData<List<Variant>?> = selectedColor3.map { color ->
         color?.let {
             product.value?.variants?.filter { variant ->
                 variant.colorCode == it.code
@@ -78,12 +88,18 @@ class ColorAnalysisViewModel (
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     fun insertToCart() {
+        tracking("click","color_cart_adding")
         product.value?.let {
             coroutineScope.launch {
                 selectedVariant.value?.apply {
                     it.selectedVariant = this
                     it.amount = amount.value
-                    if (stylishRepository.isProductInCart(it.id, it.selectedVariant.colorCode, it.selectedVariant.size)) {
+                    if (stylishRepository.isProductInCart(
+                            it.id,
+                            it.selectedVariant.colorCode,
+                            it.selectedVariant.size
+                        )
+                    ) {
 
                         _navigateToAddedFail.value = it
                     } else {
@@ -95,14 +111,39 @@ class ColorAnalysisViewModel (
         }
     }
 
-
+    fun tracking(type: String, event_value: String) {
+        // memberId -> get its unique ID saved when user first signed up
+        viewModelScope.launch {
+            try{
+                stylishRepository.trackUser(
+                    UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        event_value,
+                        UserManager.split_testing
+                    )
+                )}
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
+            }
+        }
+    }
 
 
     val productSizesText: LiveData<String> = product.map {
         when (it.sizes.size) {
             0 -> ""
             1 -> it.sizes.first()
-            else -> StylishApplication.instance.getString(R.string._dash_, it.sizes.first(), it.sizes.last())
+            else -> StylishApplication.instance.getString(
+                R.string._dash_,
+                it.sizes.first(),
+                it.sizes.last()
+            )
         }
     }
 
@@ -119,7 +160,8 @@ class ColorAnalysisViewModel (
             if (parent.getChildLayoutPosition(view) == 0) {
                 outRect.left = 0
             } else {
-                outRect.left = StylishApplication.instance.resources.getDimensionPixelSize(R.dimen.space_detail_circle)
+                outRect.left =
+                    StylishApplication.instance.resources.getDimensionPixelSize(R.dimen.space_detail_circle)
             }
         }
     }
@@ -130,20 +172,46 @@ class ColorAnalysisViewModel (
     val hairColors = listOf(brown, black, darkRed)
 
 
-    val skin = Color("skin", "F3D4C6")
-    val orange = Color("orange", "F29A68")
-    val milkTea = Color("milkTea","D7B9AF")
+    val skin = Color("skin", "F9DDB3")
+    val orange = Color("orange", "FAD1B8")
+    val milkTea = Color("milkTea", "E4AE86")
     val skinColors = listOf(skin, orange, milkTea)
 
 
+    val colorsInString = product.value?.colors?.map { it.code }
+
+    val jsonArray = JSONArray(colorsInString)
+    val jsonString = jsonArray.toString()
+
     val lightBlue = Color("lightBlue", "DDF0FF")
+    private val _bestColorFromApi = MutableLiveData<List<Color>?>()
+
+    val bestColorFromApi: LiveData<List<Color>?>
+        get() = _bestColorFromApi
 
 
-    var bestColorFromApi = listOf(lightBlue)
+    suspend fun postUserHairSkin(): ColorPickerResult {
+        return viewModelScope.async {
+            val request = ColorPickerRequest(
+                cid = UserManager.cid,
+                null,
+                eventDate = UserManager.getDate(),
+                eventTimestamp = UserManager.getTimeStamp(),
+                hair = selectedColor.value!!.code,
+                skin = selectedColor2.value!!.code,
+                colors = colorsInString
+            )
 
+            val result = stylishRepository.colorPicker(request)
+            Log.i("API Testing", result.toString())
+            val resultColor = Color("the color", "${result.data!!.recommendColor}")
+            Log.i("API Testing99", result.data!!.recommendColor)
+            val colorResult = listOf(resultColor)
+            _bestColorFromApi.value = colorResult
 
-    fun getBestColor(colors: List<Color?>) {
-//        bestColorFromApi = colors
+            return@async result
+        }.await()
+
     }
 
 
@@ -169,18 +237,21 @@ class ColorAnalysisViewModel (
         Logger.w("selectColor=$color, position=$position")
         selectedVariantPosition.value = null
         selectedVariant.value = null
-        selectedColor.value = color
+        selectedColor2.value = color
         selectedColorPosition2.value = position
+
+        Log.i("API Testing5", selectedColor.value!!.code)
+        Log.i("API Testing6", selectedColor2.value!!.code)
+        Log.i("API Testing9", colorsInString.toString())
     }
 
     fun selectColor3(color: Color, position: Int) {
         Logger.w("selectColor=$color, position=$position")
         selectedVariantPosition.value = null
         selectedVariant.value = null
-        selectedColor.value = color
+        selectedColor3.value = color
         selectedColorPosition3.value = position
     }
-
 
 
     fun selectSize(variant: Variant, position: Int) {

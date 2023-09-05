@@ -45,7 +45,7 @@
                 android:text="@{product.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/text_catalog_price"
+                app:layout_constraintBottom_toBottomOf="@id/image_catalog_main"
                 tools:text="Uniqlo 特級超輕羽絨外套"/>
 
         <TextView
@@ -53,6 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:ellipsize="end"
                 android:fontFamily="@font/noto_sans"
@@ -63,8 +64,7 @@
                 android:elevation="4dp"
                 app:price="@{product.price}"
                 app:layout_constraintBottom_toBottomOf="@id/image_catalog_main"
-                app:layout_constraintEnd_toEndOf="@+id/text_catalog_title"
-                app:layout_constraintStart_toStartOf="@+id/text_catalog_title"
+                app:layout_constraintEnd_toEndOf="@+id/image_catalog_main"
                 tools:text="NT$9999"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
