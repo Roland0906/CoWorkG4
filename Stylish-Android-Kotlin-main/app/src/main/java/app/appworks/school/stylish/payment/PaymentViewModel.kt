@@ -181,28 +181,6 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
     }
     fun prepareCheckout() {
 
-//        UserManager.userToken?.let {
-//            postOrderCheckout(
-//                it,
-//                OrderDetail(it, products.value.toOrderProductList())
-//            )
-//        }
-
-        postOrderCheckout(
-//            UserManager.userToken!!,
-            "test_user_token",
-            OrderDetail(products.value.toOrderProductList())
-        )
-
-
-
-//        UserManager.userToken?.let {
-//            postOrderCheckout(
-//                it,
-//                OrderDetail(it, products.value.toOrderProductList())
-//            )
-//        }
-
         postOrderCheckout(
 //            UserManager.userToken!!,
             "test_user_token",

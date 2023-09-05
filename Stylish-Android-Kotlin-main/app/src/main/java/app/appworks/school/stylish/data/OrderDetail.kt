@@ -48,7 +48,10 @@ data class OrderProduct(
     @Json(name = "product_price") val productPrice: Int,
     val color: Color,
     @Json(name = "product_size") val productSize: String,
-    @Json(name = "product_qty") val productQty: Long
+    @Json(name = "product_qty") val productQty: Long,
+    @Json(name = "order_date") val orderDate: String,
+    @Json(name = "order_timestamp") val orderTimestamp: Int
+
 ) : Parcelable
 
 //@Parcelize

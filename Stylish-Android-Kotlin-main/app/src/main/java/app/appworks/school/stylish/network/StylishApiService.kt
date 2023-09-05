@@ -24,11 +24,6 @@ private const val API_VERSION = "1.0"
 private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
 private const val BASE_URL2 = "http://$HOST_NAME2/api/$API_VERSION/"
 
-//private const val HOST_NAME = "3.113.149.66:8000"
-//private const val HOST_NAME = "api.appworks-school.tw"
-//private const val API_VERSION = "1.0"
-//private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
-
 
 
 
@@ -117,7 +112,7 @@ interface StylishApiService {
         @Field("access_token") fbToken: String
     ): UserSignInResult
 
-    @POST("signin")
+
     @POST("signin") //"user/signin"
     suspend fun userSignIn(
         @Header("Content-Type") type: String = "application/json",
@@ -144,27 +139,6 @@ interface StylishApiService {
 
 
 
-    @POST("tracking")
-    suspend fun trackUser(
-        @Header("Content-type") contentType: String = "application/json",
-        @Body trackUserBody: TrackUserBody
-    )
-
-    // Dong -> a bunch of body -> put header on top
-    // a bunch of body -> need data class
-    // Fields -> no need data class
-    @Parcelize
-    data class TrackUserBody(
-        val cid: String,
-        @Json(name = "member_id")val memberId: Int?,
-        @Json(name = "device_Os")val deviceOs: String,
-        @Json(name = "event_date")val eventDate: String,
-        @Json(name = "event_timestamp")val eventTimestamp: Int,
-        @Json(name = "event_type")val eventType: String,
-        @Json(name = "event_value")val eventValue: String,
-        @Json(name = "split_testing")val splitTesting: String
-    ) : Parcelable
-
 
 
     // Dong -> a bunch of body -> put header on top
@@ -187,21 +161,13 @@ interface StylishApiService {
     data class TrackUserBody(
         val cid: String,
         @Json(name = "member_id")val memberId: Int?,
-        @Json(name = "device_Os")val deviceOs: String,
+        @Json(name = "device_os")val deviceOs: String,
         @Json(name = "event_date")val eventDate: String,
         @Json(name = "event_timestamp")val eventTimestamp: Int,
         @Json(name = "event_type")val eventType: String,
         @Json(name = "event_value")val eventValue: String,
         @Json(name = "split_testing")val splitTesting: String
     ) : Parcelable
-
-
-
-    // Dong -> a bunch of body -> put header on top
-    // a bunch of body -> need data class
-    // Fields -> no need data class
-
-
 
 
 

@@ -111,6 +111,29 @@ class ColorAnalysisViewModel(
         }
     }
 
+    fun tracking(type: String, event_value: String) {
+        // memberId -> get its unique ID saved when user first signed up
+        viewModelScope.launch {
+            try{
+                stylishRepository.trackUser(
+                    UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        event_value,
+                        UserManager.split_testing
+                    )
+                )}
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
+            }
+        }
+    }
+
 
     val productSizesText: LiveData<String> = product.map {
         when (it.sizes.size) {
@@ -171,7 +194,7 @@ class ColorAnalysisViewModel(
         return viewModelScope.async {
             val request = ColorPickerRequest(
                 cid = UserManager.cid,
-                memberId = "",
+                null,
                 eventDate = UserManager.getDate(),
                 eventTimestamp = UserManager.getTimeStamp(),
                 hair = selectedColor.value!!.code,

@@ -27,7 +27,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getMarketingHots()
+            val listResult = StylishApi.retrofitService2.getMarketingHots()
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -68,7 +68,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getUserProfile(token)
+            val listResult = StylishApi.retrofitService2.getUserProfile(token)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -91,7 +91,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.userSignIn(fbToken = fbToken)
+            val listResult = StylishApi.retrofitService2.userSignIn(fbToken = fbToken)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -154,7 +154,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.checkoutOrder("application/json", token, orderDetail)
+            val listResult = StylishApi.retrofitService2.checkoutOrder("application/json", token, orderDetail)
 
             listResult.error?.let {
                 return Result.Fail(it)
@@ -198,7 +198,7 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun colorPicker(request: ColorPickerRequest): ColorPickerResult {
-        return StylishApi.retrofitService.colorPicker(request)
+        return StylishApi.retrofitService2.colorPicker(request)
     }
     
 
