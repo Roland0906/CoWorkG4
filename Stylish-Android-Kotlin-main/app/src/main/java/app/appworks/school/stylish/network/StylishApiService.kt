@@ -18,13 +18,18 @@ import java.util.Date
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+private const val HOST_NAME = "api.appworks-school.tw"
+private const val HOST_NAME2 = "3.113.149.66:8000"
+private const val API_VERSION = "1.0"
+private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
+private const val BASE_URL2 = "http://$HOST_NAME2/api/$API_VERSION/"
+
+//private const val HOST_NAME = "3.113.149.66:8000"
 //private const val HOST_NAME = "api.appworks-school.tw"
 //private const val API_VERSION = "1.0"
 //private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
 
-private const val HOST_NAME = "3.113.149.66:8000"
-private const val API_VERSION = "1.0"
-private const val BASE_URL = "http://$HOST_NAME/api/$API_VERSION/"
+
 
 
 /**
@@ -58,6 +63,13 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
     .client(client)
     .build()
+
+private val retrofit2 = Retrofit.Builder()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .baseUrl(BASE_URL2)
+    .client(client)
+    .build()
+
 
 
 
@@ -106,10 +118,11 @@ interface StylishApiService {
     ): UserSignInResult
 
     @POST("signin")
+    @POST("signin") //"user/signin"
     suspend fun userSignIn(
         @Header("Content-Type") type: String = "application/json",
         @Body nativeSignInBody: NativeSignInBody
-    ): UserSignInResult
+    ): UserSignIn?
 
     @POST("signup")
     suspend fun userSignUp(
@@ -131,6 +144,66 @@ interface StylishApiService {
 
 
 
+    @POST("tracking")
+    suspend fun trackUser(
+        @Header("Content-type") contentType: String = "application/json",
+        @Body trackUserBody: TrackUserBody
+    )
+
+    // Dong -> a bunch of body -> put header on top
+    // a bunch of body -> need data class
+    // Fields -> no need data class
+    @Parcelize
+    data class TrackUserBody(
+        val cid: String,
+        @Json(name = "member_id")val memberId: Int?,
+        @Json(name = "device_Os")val deviceOs: String,
+        @Json(name = "event_date")val eventDate: String,
+        @Json(name = "event_timestamp")val eventTimestamp: Int,
+        @Json(name = "event_type")val eventType: String,
+        @Json(name = "event_value")val eventValue: String,
+        @Json(name = "split_testing")val splitTesting: String
+    ) : Parcelable
+
+
+
+    // Dong -> a bunch of body -> put header on top
+    // a bunch of body -> need data class
+    // Fields -> no need data class
+
+
+
+
+    @POST("tracking")
+    suspend fun trackUser(
+        @Header("Content-type") contentType: String = "application/json",
+        @Body trackUserBody: TrackUserBody
+    )
+
+    // Dong -> a bunch of body -> put header on top
+    // a bunch of body -> need data class
+    // Fields -> no need data class
+    @Parcelize
+    data class TrackUserBody(
+        val cid: String,
+        @Json(name = "member_id")val memberId: Int?,
+        @Json(name = "device_Os")val deviceOs: String,
+        @Json(name = "event_date")val eventDate: String,
+        @Json(name = "event_timestamp")val eventTimestamp: Int,
+        @Json(name = "event_type")val eventType: String,
+        @Json(name = "event_value")val eventValue: String,
+        @Json(name = "split_testing")val splitTesting: String
+    ) : Parcelable
+
+
+
+    // Dong -> a bunch of body -> put header on top
+    // a bunch of body -> need data class
+    // Fields -> no need data class
+
+
+
+
 
     @POST("color_picker")
     suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult
@@ -143,6 +216,7 @@ interface StylishApiService {
  */
 object StylishApi {
     val retrofitService: StylishApiService by lazy { retrofit.create(StylishApiService::class.java) }
+    val retrofitService2: StylishApiService by lazy { retrofit2.create(StylishApiService::class.java) }
 }
 
 

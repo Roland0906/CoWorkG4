@@ -53,6 +53,7 @@ object UserManager {
     /**
      * It can be use to check login status directly
      */
+
     val isLoggedIn: Boolean
         get() = userToken != null
 
@@ -62,23 +63,14 @@ object UserManager {
 
     var uuid = ""
 
-    fun getDate(): String {
-        val currentDate = Date()
-        val dataFormat = SimpleDateFormat("yyyy-MM-dd")
-        val formattedDate = dataFormat.format(currentDate).toString()
-        Log.i("API Testing3", formattedDate)
-        return formattedDate
-    }
+    var split_testing = "fashionable"
 
-    fun getTimeStamp(): Int {
-        return System.currentTimeMillis().toInt()
-    }
-
-
+    var member_id = null
 
     /**
      * Clear the [userToken] and the [user]/[_user] data
      */
+
     fun clear() {
         userToken = null
         _user.value = null
@@ -91,6 +83,7 @@ object UserManager {
     /**
      * Winter is coming
      */
+
     fun challenge() {
         if (System.currentTimeMillis() - lastChallengeTime > 5000) {
             lastChallengeTime = System.currentTimeMillis()
@@ -107,5 +100,13 @@ object UserManager {
                 challengeCount++
             }
         }
+    }
+    fun getTimeStamp(): Int{
+        return System.currentTimeMillis().toInt()
+    }
+    fun getDate():String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val currentDate = Date()
+        return dateFormat.format(currentDate)
     }
 }

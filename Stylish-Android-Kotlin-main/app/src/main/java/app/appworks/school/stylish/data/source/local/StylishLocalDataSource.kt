@@ -3,6 +3,7 @@ package app.appworks.school.stylish.data.source.local
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
+import app.appworks.school.stylish.network.StylishApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.util.Date
@@ -30,7 +31,7 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+    override suspend fun userSignIn(email: String, password: String): UserSignIn? {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
@@ -84,7 +85,12 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         }
     }
 
-
+    override suspend fun trackUser(
+        contentType: String,
+        trackUserBody: StylishApiService.TrackUserBody
+    ) {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun colorPicker(request: ColorPickerRequest): ColorPickerResult {
         TODO("Not yet implemented")

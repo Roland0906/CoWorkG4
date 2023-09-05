@@ -1,13 +1,16 @@
 package app.appworks.school.stylish.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.User
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import com.facebook.CallbackManager
@@ -128,32 +131,50 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
         }
     }
 
-    private fun loginStylish(email: String, password: String) {
+    fun tracking(type: String) {
+        // memberId -> get its unique ID saved when user first signed up
+        viewModelScope.launch {
+            try{
+                stylishRepository.trackUser(
+                    UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        "signin_signup",
+                        UserManager.split_testing
+                    )
+                )
+            }
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
+            }
+        }
+    }
+
+    private fun loginStylish(email: String, password: String) { // testing
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
             // It will return Result object after Deferred flow
-            when (val result = stylishRepository.userSignIn(email, password)) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                    UserManager.userToken = result.data.userSignIn?.accessToken
-                    _user.value = result.data.userSignIn?.user
-                    _navigateToLoginSuccess.value = user.value
-                }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                }
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                }
-                else -> {
-                    _error.value = getString(R.string.you_know_nothing)
-                    _status.value = LoadApiStatus.ERROR
-                }
+            val result = stylishRepository.userSignIn(email, password)
+            if(result != null){
+                _error.value = null
+                _status.value = LoadApiStatus.DONE
+                UserManager.userToken = result.accessToken
+                _user.value = result.user
+                _navigateToLoginSuccess.value = user.value
+                Log.i("testAPI","${result.accessExpired}")
+                Log.i("testAPI","${result.accessToken}")
+            }
+            else{
+                _error.value = getString(R.string.you_know_nothing)
+                _status.value = LoadApiStatus.ERROR
+
             }
         }
     }

@@ -113,6 +113,29 @@ class DetailViewModel(
             }
         }
     }
+    fun tracking(type: String) {
+        // memberId -> get its unique ID saved when user first signed up
+        viewModelScope.launch {
+            try{
+                stylishRepository.trackUser(
+                    UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        "product_detail",
+                        UserManager.split_testing
+                    )
+                )
+            }
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
+            }
+        }
+    }
 
     fun navigateToAdd2cart(product: Product) {
         _navigateToAdd2cart.value = product

@@ -19,6 +19,7 @@ import app.appworks.school.stylish.data.Product
 import app.appworks.school.stylish.data.Variant
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -87,6 +88,7 @@ class ColorAnalysisViewModel(
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     fun insertToCart() {
+        tracking("click","color_cart_adding")
         product.value?.let {
             coroutineScope.launch {
                 selectedVariant.value?.apply {

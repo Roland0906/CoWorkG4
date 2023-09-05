@@ -52,6 +52,7 @@ class ColorAnalysisFragment : Fragment() {
 
         Log.i("API Testing1", UserManager.cid)
         Log.i("API Testing3", UserManager.getDate())
+        Log.i("API Testing3", UserManager.getDate())
         Log.i("API Testing4", UserManager.getTimeStamp().toString())
         Log.i("API Testing7", viewModel.colorsInString.toString())
         Log.i("API Testing8", viewModel.jsonString)
