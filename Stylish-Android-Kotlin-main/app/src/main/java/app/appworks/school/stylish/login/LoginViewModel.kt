@@ -171,6 +171,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     UserManager.userToken = result.accessToken
                     _user.value = result.user
                     _navigateToLoginSuccess.value = user.value
+                    stylishRepository.getUserProfile("Bearer ${UserManager.userToken}")
                     Log.i("testAPI", "${result.accessExpired}")
                     Log.i("testAPI", "${result.accessToken}")
                 } else {
@@ -182,7 +183,10 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                 Log.i("Exception", e.toString())
             }
         }
+
     }
+
+
 
     private fun signUpStylish(email: String, password: String) {
 
@@ -198,14 +202,17 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     _user.value = result.data.userSignIn?.user
                     _navigateToLoginSuccess.value = user.value
                 }
+
                 is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
                 }
+
                 is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
                 }
+
                 else -> {
                     _error.value = getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
