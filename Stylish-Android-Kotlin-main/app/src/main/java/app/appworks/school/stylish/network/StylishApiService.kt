@@ -70,7 +70,7 @@ interface StylishApiService {
      * Returns a Coroutine [Deferred] [MarketingHotsResult] which can be fetched with await() if in a Coroutine scope.
      * The @GET annotation indicates that the "marketing/hots" endpoint will be requested with the GET HTTP method
      */
-    @GET("products/style?style=a") // "marketing/hots
+    @GET("products/style?style=a") // not working, original -> "marketing/hots
     suspend fun getMarketingHots(): MarketingHotsResult
 
     /**
@@ -124,6 +124,7 @@ interface StylishApiService {
      */
     @POST("order/checkout")
     suspend fun checkoutOrder(
+        @Header("Content-Type") type: String = "application/json",
         @Header("Authorization") token: String,
         @Body orderDetail: OrderDetail
     ): CheckoutOrderResult

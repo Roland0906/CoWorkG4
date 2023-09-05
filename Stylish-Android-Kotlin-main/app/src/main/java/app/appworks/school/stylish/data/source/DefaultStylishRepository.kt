@@ -42,10 +42,11 @@ class DefaultStylishRepository(
     }
 
     override suspend fun checkoutOrder(
+        type: String,
         token: String,
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
-        return stylishRemoteDataSource.checkoutOrder(token, orderDetail)
+        return stylishRemoteDataSource.checkoutOrder(type, token, orderDetail)
     }
 
     override fun getProductsInCart(): LiveData<List<Product>> {

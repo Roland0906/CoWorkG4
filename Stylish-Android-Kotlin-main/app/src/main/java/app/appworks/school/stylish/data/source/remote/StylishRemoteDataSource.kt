@@ -156,6 +156,7 @@ object StylishRemoteDataSource : StylishDataSource {
     }
 
     override suspend fun checkoutOrder(
+        type: String,
         token: String,
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
@@ -166,7 +167,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.checkoutOrder(token, orderDetail)
+            val listResult = StylishApi.retrofitService.checkoutOrder("application/json", token, orderDetail)
 
             listResult.error?.let {
                 return Result.Fail(it)

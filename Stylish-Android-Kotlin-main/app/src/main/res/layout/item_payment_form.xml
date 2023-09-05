@@ -433,7 +433,6 @@
                         android:textSize="16sp"
                         android:letterSpacing="0.15"
                         android:text='@{viewModel.status != LoadApiStatus.LOADING ? @string/goto_checkout : ""}'
-                        android:clickable="@{viewModel.status == LoadApiStatus.LOADING ? false : true}"
                         style="@style/Base.Widget.AppCompat.Button.Borderless"
                         android:background="@drawable/button_add2cart_black_ripple"
                         android:onClick="@{() -> viewModel.prepareCheckout()}"
@@ -441,6 +440,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"/>
+
+<!--                android:clickable="@{viewModel.status == LoadApiStatus.LOADING ? false : true}"-->
 
                 <ProgressBar
                         android:id="@+id/progress_payment_checkout"

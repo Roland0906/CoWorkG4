@@ -24,7 +24,7 @@ interface StylishDataSource {
 
     suspend fun userSignUp(name: String?, email: String, password: String): Result<UserSignUpResult>
 
-    suspend fun checkoutOrder(token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
+    suspend fun checkoutOrder(type: String, token: String, orderDetail: OrderDetail): Result<CheckoutOrderResult>
 
     fun getProductsInCart(): LiveData<List<Product>>
 

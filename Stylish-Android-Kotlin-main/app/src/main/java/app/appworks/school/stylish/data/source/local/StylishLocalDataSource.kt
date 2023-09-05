@@ -43,6 +43,7 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
     }
 
     override suspend fun checkoutOrder(
+        type: String,
         token: String,
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
