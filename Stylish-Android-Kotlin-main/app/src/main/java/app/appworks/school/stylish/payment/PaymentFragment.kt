@@ -39,7 +39,7 @@ class PaymentFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerPayment.adapter = PaymentAdapter(viewModel)
         binding.viewModel = viewModel
-
+        viewModel.tracking("view")
         viewModel.checkoutSuccess.observe(
             viewLifecycleOwner,
             Observer {

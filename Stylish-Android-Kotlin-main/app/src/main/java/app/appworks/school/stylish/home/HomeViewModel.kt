@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,12 +12,15 @@ import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
+import java.io.IOException
 import java.util.UUID
 
 /**
@@ -24,6 +28,7 @@ import java.util.UUID
  *
  * The [ViewModel] that is attached to the [HomeFragment].
  */
+
 class HomeViewModel(private val stylishRepository: StylishRepository) : ViewModel() {
 
     private val _homeItems = MutableLiveData<List<HomeItem>>()
@@ -120,11 +125,26 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
 
 
-    fun tracking(type: String) {
+    fun tracking(type: String, event_value: String) {
 
         // memberId -> get its unique ID saved when user first signed up
         viewModelScope.launch {
-            stylishRepository.trackUser(UserManager.contentType, UserManager.cid, "", "Android", UserManager.getDate(), UserManager.getTimeStamp(), type, "hots","fresh")
+            try{
+                stylishRepository.trackUser(UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        event_value,
+                        UserManager.split_testing
+                    )
+                )}
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
+            }
         }
     }
 

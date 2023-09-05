@@ -1,7 +1,9 @@
 package app.appworks.school.stylish.data.source
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.network.StylishApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import java.util.Date
@@ -32,7 +34,7 @@ class DefaultStylishRepository(
         return stylishRemoteDataSource.userSignIn(fbToken)
     }
 
-    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+    override suspend fun userSignIn(email: String, password: String): UserSignIn? {
         return stylishRemoteDataSource.userSignIn(email, password)
     }
 
@@ -73,16 +75,9 @@ class DefaultStylishRepository(
 
     override suspend fun trackUser(
         contentType: String,
-        cid: String,
-        memberId: String?,
-        deviceOs: String,
-        eventDate: String,
-        eventTimestamp: Int,
-        eventType: String,
-        eventValue: String,
-        splitTesting: String
+        trackUserBody: StylishApiService.TrackUserBody
     ) {
-        stylishRemoteDataSource.trackUser(contentType, cid, memberId, deviceOs, eventDate, eventTimestamp, eventType, eventValue, splitTesting)
+        stylishRemoteDataSource.trackUser(contentType, trackUserBody)
     }
 
     override suspend fun colorPicker(

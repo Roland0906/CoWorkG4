@@ -121,7 +121,7 @@ interface StylishApiService {
     suspend fun userSignIn(
         @Header("Content-Type") type: String = "application/json",
         @Body nativeSignInBody: NativeSignInBody
-    ): UserSignInResult
+    ): UserSignIn?
 
     @POST("signup") //"user/signup"
     suspend fun userSignUp(
@@ -142,33 +142,25 @@ interface StylishApiService {
 
 
 
-    @FormUrlEncoded
     @POST("tracking")
     suspend fun trackUser(
         @Header("Content-type") contentType: String = "application/json",
-        @Field("cid") cid: String = "",
-        @Field("member_id") memberId: String? = "",
-        @Field("device_os") deviceOs: String = "Android",
-        @Field("event_date") eventDate: String = "",
-        @Field("event_timestamp") eventTimestamp: Int = -1,
-        @Field("event_type") eventType: String = "",
-        @Field("event_value") eventValue: String = "",
-        @Field("split_testing") splitTesting: String = ""
+        @Body trackUserBody: TrackUserBody
     )
 
     // Dong -> a bunch of body -> put header on top
     // a bunch of body -> need data class
     // Fields -> no need data class
     @Parcelize
-    data class TrackRequest(
+    data class TrackUserBody(
         val cid: String,
-        val memberId: String,
-        val deviceOs: String,
-        val eventDate: Date,
-        val eventTimestamp: Int,
-        val eventType: String,
-        val eventValue: String,
-        val splitTesting: String
+        @Json(name = "member_id")val memberId: Int?,
+        @Json(name = "device_Os")val deviceOs: String,
+        @Json(name = "event_date")val eventDate: String,
+        @Json(name = "event_timestamp")val eventTimestamp: Int,
+        @Json(name = "event_type")val eventType: String,
+        @Json(name = "event_value")val eventValue: String,
+        @Json(name = "split_testing")val splitTesting: String
     ) : Parcelable
 
 

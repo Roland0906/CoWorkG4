@@ -6,6 +6,7 @@ import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
 import app.appworks.school.stylish.network.StylishApi
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import app.appworks.school.stylish.util.Util.isInternetConnected
@@ -31,6 +32,7 @@ object StylishRemoteDataSource : StylishDataSource {
             listResult.error?.let {
                 return Result.Fail(it)
             }
+
             Result.Success(listResult.toHomeItems())
         } catch (e: Exception) {
             Logger.w("[${this::class.simpleName}] exception=${e.message}")
@@ -101,31 +103,14 @@ object StylishRemoteDataSource : StylishDataSource {
         }
     }
 // testing
-    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
+    override suspend fun userSignIn(email: String, password: String): UserSignIn? {
 
-        if (!isInternetConnected()) {
-            return Result.Fail(getString(R.string.internet_not_connected))
-        }
 
-        return try {
-            // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService2.userSignIn("application/json", //testing here
+        return StylishApi.retrofitService2.userSignIn("application/json", //testing here
                 NativeSignInBody(
                     email = email,
-                    password = password
-                )
-            )
-            Log.i("testAPI","$listResult")
-
-            listResult.error?.let {
-                return Result.Fail(it)
-            }
-            Result.Success(listResult)
-        } catch (e: Exception) {
-            Logger.w("[${this::class.simpleName}] exception=${e.message}")
-            Result.Error(e)
+                    password = password))
         }
-    }
 
     override suspend fun userSignUp(
         name: String,
@@ -139,7 +124,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.userSignUp(
+            val listResult = StylishApi.retrofitService2.userSignUp(
                 NativeSignUpBody(
                     name = name,
                     email = email,
@@ -206,16 +191,9 @@ object StylishRemoteDataSource : StylishDataSource {
 
     override suspend fun trackUser(
         contentType: String,
-        cid: String,
-        memberId: String?,
-        deviceOs: String,
-        eventDate: String,
-        eventTimestamp: Int,
-        eventType: String,
-        eventValue: String,
-        splitTesting: String
+        trackUserBody: StylishApiService.TrackUserBody
     ) {
-        StylishApi.retrofitService2.trackUser(contentType,cid,memberId,deviceOs,eventDate,eventTimestamp,eventType,eventValue,splitTesting)
+        StylishApi.retrofitService2.trackUser(contentType, trackUserBody)
     }
     override suspend fun colorPicker(
         cid: String,

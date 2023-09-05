@@ -63,6 +63,10 @@ object UserManager {
 
     var uuid = ""
 
+    var split_testing = "fashionable"
+
+    var member_id = null
+
     /**
      * Clear the [userToken] and the [user]/[_user] data
      */

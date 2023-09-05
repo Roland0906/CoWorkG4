@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+
 @Parcelize
 data class OrderDetail(
     val prime: String,

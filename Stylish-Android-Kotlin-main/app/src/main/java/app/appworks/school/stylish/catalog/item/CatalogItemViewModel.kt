@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.catalog.item
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,11 @@ import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.catalog.CatalogTypeFilter
 import app.appworks.school.stylish.component.GridSpacingItemDecoration
 import app.appworks.school.stylish.data.Product
+import app.appworks.school.stylish.data.source.StylishRepository
+import app.appworks.school.stylish.login.UserManager
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
+import kotlinx.coroutines.launch
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -20,7 +25,8 @@ import app.appworks.school.stylish.util.Logger
  * The [ViewModel] that is attached to the [CatalogItemFragment].
  */
 class CatalogItemViewModel(
-    catalogType: CatalogTypeFilter // Handle the type for each catalog item
+    catalogType: CatalogTypeFilter,
+    private val stylishRepository: StylishRepository// Handle the type for each catalog item
 ) : ViewModel() {
 
     val catalog = Pager(
@@ -54,4 +60,29 @@ class CatalogItemViewModel(
     fun onDetailNavigated() {
         _navigateToDetail.value = null
     }
+
+    fun tracking(type: String) {
+
+        // memberId -> get its unique ID saved when user first signed up
+        viewModelScope.launch {
+            try{
+                stylishRepository.trackUser(
+                    UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        "product_image",
+                        UserManager.split_testing
+                    )
+                )}
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
+            }
+        }
+    }
+
 }

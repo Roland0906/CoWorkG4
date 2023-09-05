@@ -2,6 +2,7 @@ package app.appworks.school.stylish.data.source
 
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
+import app.appworks.school.stylish.network.StylishApiService
 import java.util.Date
 
 /**
@@ -19,7 +20,7 @@ interface StylishRepository {
 
     suspend fun userSignIn(fbToken: String): Result<UserSignInResult>
 
-    suspend fun userSignIn(email: String, password: String): Result<UserSignInResult>
+    suspend fun userSignIn(email: String, password: String): UserSignIn?
 
     suspend fun userSignUp(name: String, email: String, password: String): Result<UserSignUpResult>
 
@@ -38,7 +39,7 @@ interface StylishRepository {
     suspend fun clearProductInCart()
 
 
-    suspend fun trackUser(contentType: String, cid: String, memberId: String?, deviceOs: String, eventDate: String, eventTimestamp: Int, eventType: String, eventValue: String, splitTesting: String)
+    suspend fun trackUser(contentType: String, trackUserBody: StylishApiService.TrackUserBody)
 
 
 

@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.payment
 
+import android.util.Log
 import androidx.lifecycle.*
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
@@ -8,6 +9,7 @@ import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.ext.toOrderProductList
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getColor
 import app.appworks.school.stylish.util.Util.getString
@@ -153,8 +155,32 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
     /**
      * Prepare to checkout, make sure the input user info are not empty first, and then check the [TPDStatus] of [TPDForm]
      */
+    fun tracking(type: String) {
+        // memberId -> get its unique ID saved when user first signed up
+        viewModelScope.launch {
+            try{
+                stylishRepository.trackUser(
+                    UserManager.contentType,
+                    StylishApiService.TrackUserBody(
+                        UserManager.cid,
+                        UserManager.member_id,
+                        "Android",
+                        UserManager.getDate(),
+                        UserManager.getTimeStamp(),
+                        type,
+                        "checkout",
+                        UserManager.split_testing
+                    )
+                )
+            }
+            catch(e: Exception){
+                Log.i("testAPI","trackUser failed")
+            }
+        }
+    }
     fun prepareCheckout() {
 
+        tracking("click")
         when {
             name.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_NAME_EMPTY
             email.value.isNullOrEmpty() -> _invalidCheckout.value = INVALID_FORMAT_EMAIL_EMPTY
@@ -171,10 +197,12 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
         }
     }
 
+
     /**
      * Checkout the order when everything is ready, but we still have to check the user login status haha
      * @param prime: The prime key is the token from [TPDCard]
      */
+
     fun checkout(prime: String) {
         when (UserManager.isLoggedIn) {
             true -> {
@@ -266,9 +294,10 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
     }
 
     // it will occur when get prime success
-    private val tpdTokenSuccessCallback = { prime: String, cardInfo: TPDCardInfoDto, cardIdentifier: String, merchantReferenceInfo: TPDMerchantReferenceInfoDto ->
-        checkout(prime)
-    }
+    private val tpdTokenSuccessCallback =
+        { prime: String, cardInfo: TPDCardInfoDto, cardIdentifier: String, merchantReferenceInfo: TPDMerchantReferenceInfoDto ->
+            checkout(prime)
+        }
 
     // it will occur when get prime failure
     private val tpdTokenFailureCallback = { status: Int, reportMsg: String ->

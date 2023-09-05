@@ -39,17 +39,25 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import app.appworks.school.stylish.R
 import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.NavigationDirections
+import app.appworks.school.stylish.ext.getVmFactory
+import app.appworks.school.stylish.home.HomeViewModel
 
 class TinderFragment : Fragment() {
+    private val viewModel by viewModels<TinderViewModel> { getVmFactory() }
+
     @OptIn(ExperimentalMaterialApi::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val swipeResults = mutableListOf<Int>()
+
+        viewModel.tracking("view","tinder")
+
         return ComposeView(requireContext()).apply {
             setContent {
                 TinderCloneTheme {

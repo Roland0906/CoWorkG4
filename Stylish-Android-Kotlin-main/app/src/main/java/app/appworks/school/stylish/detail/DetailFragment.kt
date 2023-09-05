@@ -18,7 +18,6 @@ import app.appworks.school.stylish.ext.getVmFactory
  * Created by Wayne Chen in Jul. 2019.
  */
 class DetailFragment : Fragment() {
-
     /**
      * Lazily initialize our [DetailViewModel].
      */
@@ -33,7 +32,7 @@ class DetailFragment : Fragment() {
     ): View? {
 //        init()
         val binding = FragmentDetailBinding.inflate(inflater, container, false)
-
+        viewModel.tracking("view","product_detail")
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
