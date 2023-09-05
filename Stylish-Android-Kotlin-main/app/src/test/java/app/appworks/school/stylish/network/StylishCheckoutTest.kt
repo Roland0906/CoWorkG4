@@ -61,7 +61,7 @@ class StylishCheckoutTest : StylishApiServiceTest() {
         val detail = moshi.adapter(OrderDetail::class.java).fromJson(rawOrderDetail)
         runBlocking {
             assertTrue(detail != null)
-            val checkoutResult = service.checkoutOrder("application/json", "TOKEN", detail!!)
+            val checkoutResult = service.checkoutOrder("TOKEN", detail!!)
             assertTrue(checkoutResult.data != null)
             assertEquals("4465123465", checkoutResult.data!!.number)
         }

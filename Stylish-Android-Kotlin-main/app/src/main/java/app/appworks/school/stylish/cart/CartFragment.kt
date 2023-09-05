@@ -27,7 +27,6 @@ class CartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 //        init()
-        viewModel.tracking("view")
         val binding = FragmentCartBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel

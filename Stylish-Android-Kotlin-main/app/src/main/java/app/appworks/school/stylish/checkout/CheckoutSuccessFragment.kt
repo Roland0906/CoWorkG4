@@ -32,7 +32,7 @@ class CheckoutSuccessFragment : Fragment() {
         val binding = FragmentCheckoutSuccessBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-        viewModel.tracking("view")
+
         viewModel.navigateToHome.observe(
             viewLifecycleOwner,
             Observer {

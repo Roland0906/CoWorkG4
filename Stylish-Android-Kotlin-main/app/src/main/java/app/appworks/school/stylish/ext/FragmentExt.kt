@@ -31,6 +31,5 @@ fun Fragment.getVmFactory(product: Product): ProductViewModelFactory {
 }
 
 fun Fragment.getVmFactory(catalogType: CatalogTypeFilter): CatalogItemViewModelFactory {
-    val repository = (requireContext().applicationContext as StylishApplication).stylishRepository
-    return CatalogItemViewModelFactory(catalogType, repository)
+    return CatalogItemViewModelFactory(catalogType)
 }

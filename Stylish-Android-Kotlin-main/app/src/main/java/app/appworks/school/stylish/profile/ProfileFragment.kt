@@ -1,6 +1,5 @@
 package app.appworks.school.stylish.profile
 
-import android.graphics.Path.Direction
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,12 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import app.appworks.school.stylish.MainViewModel
-import app.appworks.school.stylish.NavigationDirections
 import app.appworks.school.stylish.databinding.FragmentProfileBinding
 import app.appworks.school.stylish.ext.getVmFactory
-import java.nio.file.DirectoryIteratorException
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -34,18 +30,8 @@ class ProfileFragment : Fragment() {
 //        init()
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        viewModel.tracking("view")
-
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
-
-        binding.buttonProfileNotification.setOnClickListener {
-            findNavController().navigate(NavigationDirections.navigateToTinderFragment())
-        }
-        binding.buttonProfileStarred.setOnClickListener {
-            findNavController().navigate(NavigationDirections.navigateToTinderSuccessFragment())
-        }
-
 
         if (viewModel.user.value == null) {
             // user info will be null if user already logged in, and it will get user info from server,

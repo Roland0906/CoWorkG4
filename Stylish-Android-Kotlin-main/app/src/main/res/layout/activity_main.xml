@@ -75,7 +75,7 @@
                     android:layout_height="@dimen/height_bottom_nav_view_main"
                     android:background="@color/white"
                     android:elevation="@dimen/elevation_all"
-                    android:visibility="@{(viewModel.currentFragmentType == CurrentFragmentType.TINDER_SUCCESS || viewModel.currentFragmentType == CurrentFragmentType.DETAIL || viewModel.currentFragmentType == CurrentFragmentType.TINDER || viewModel.currentFragmentType == CurrentFragmentType.PAYMENT) || viewModel.currentFragmentType == CurrentFragmentType.CHECKOUT_SUCCESS ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{(viewModel.currentFragmentType == CurrentFragmentType.DETAIL || viewModel.currentFragmentType == CurrentFragmentType.PAYMENT) || viewModel.currentFragmentType == CurrentFragmentType.CHECKOUT_SUCCESS ? View.GONE : View.VISIBLE}"
                     app:itemIconTint="@drawable/bottom_nav_item_selector"
                     app:labelVisibilityMode="unlabeled"
                     app:layout_constraintBottom_toBottomOf="parent"

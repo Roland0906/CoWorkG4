@@ -7,7 +7,6 @@ import android.view.View
 import app.appworks.school.stylish.StylishApplication
 import app.appworks.school.stylish.data.OrderProduct
 import app.appworks.school.stylish.data.Product
-import app.appworks.school.stylish.login.UserManager
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -25,9 +24,7 @@ fun List<Product>?.toOrderProductList(): List<OrderProduct> {
                     product.price,
                     product.colors.filter { it.code == product.selectedVariant.colorCode }.first(),
                     product.selectedVariant.size,
-                    product.amount ?: 0,
-                    UserManager.getDate(),
-                    UserManager.getTimeStamp()
+                    product.amount ?: 0
                 )
             )
         }
