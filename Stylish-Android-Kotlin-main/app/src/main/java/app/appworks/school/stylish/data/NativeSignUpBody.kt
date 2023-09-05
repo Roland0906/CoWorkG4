@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class NativeSignUpBody(
-    val name: String?,
+    val name: String,
     val email: String,
     val password: String
 ) : Parcelable

@@ -9,11 +9,6 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class UserProfileResult(
+    val error: String? = null,
     @Json(name = "data") val user: User? = null
 ) : Parcelable
-
-//@Parcelize
-//data class UserProfileResult(
-//    val error: String? = null,
-//    @Json(name = "data") val user: User? = null
-//) : Parcelable

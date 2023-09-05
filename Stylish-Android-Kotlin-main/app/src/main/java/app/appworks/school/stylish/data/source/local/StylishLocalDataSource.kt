@@ -3,10 +3,8 @@ package app.appworks.school.stylish.data.source.local
 import androidx.lifecycle.LiveData
 import app.appworks.school.stylish.data.*
 import app.appworks.school.stylish.data.source.StylishDataSource
-import app.appworks.school.stylish.network.StylishApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.Date
 
 /**
  * Created by Wayne Chen in Jul. 2019.
@@ -15,7 +13,7 @@ import java.util.Date
  */
 class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataSource {
 
-    override suspend fun getMarketingHots(style: String): Result<List<HomeItem>> {
+    override suspend fun getMarketingHots(): Result<List<HomeItem>> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
@@ -31,12 +29,12 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
-    override suspend fun userSignIn(email: String, password: String): UserSignIn? {
+    override suspend fun userSignIn(email: String, password: String): Result<UserSignInResult> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun userSignUp(
-        name: String?,
+        name: String,
         email: String,
         password: String
     ): Result<UserSignUpResult> {
@@ -44,7 +42,6 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
     }
 
     override suspend fun checkoutOrder(
-        type: String,
         token: String,
         orderDetail: OrderDetail
     ): Result<CheckoutOrderResult> {
@@ -83,16 +80,5 @@ class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataS
         withContext(Dispatchers.IO) {
             dao.clear()
         }
-    }
-
-    override suspend fun trackUser(
-        contentType: String,
-        trackUserBody: StylishApiService.TrackUserBody
-    ) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun colorPicker(request: ColorPickerRequest): ColorPickerResult {
-        TODO("Not yet implemented")
     }
 }

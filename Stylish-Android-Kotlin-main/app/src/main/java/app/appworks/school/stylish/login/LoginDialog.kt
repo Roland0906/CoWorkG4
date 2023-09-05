@@ -43,7 +43,6 @@ class LoginDialog : AppCompatDialogFragment() {
 
         binding = DialogLoginBinding.inflate(inflater, container, false)
         binding.layoutLogin.startAnimation(AnimationUtils.loadAnimation(context, R.anim.anim_slide_up))
-        viewModel.tracking("view")
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel

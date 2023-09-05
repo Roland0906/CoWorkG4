@@ -39,7 +39,7 @@ class PaymentFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.recyclerPayment.adapter = PaymentAdapter(viewModel)
         binding.viewModel = viewModel
-        viewModel.tracking("view")
+
         viewModel.checkoutSuccess.observe(
             viewLifecycleOwner,
             Observer {
@@ -56,7 +56,6 @@ class PaymentFragment : Fragment() {
                 it?.let {
                     findNavController().navigate(NavigationDirections.navigateToCheckoutSuccessFragment())
                     viewModel.onCheckoutSuccessNavigated()
-                    // Send api
                 }
             }
         )
