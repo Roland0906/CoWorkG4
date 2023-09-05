@@ -21,7 +21,6 @@
                 android:id="@+id/image_home_left"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{product.images[0]}"
                 app:layout_constraintDimensionRatio="1:1"
@@ -72,41 +71,41 @@
                 app:layout_constraintTop_toTopOf="@+id/image_home_top"
                 tools:src="@drawable/ic_placeholder"/>
 
-        <TextView
-                android:id="@+id/text_home_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="16dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/noto_sans"
-                android:letterSpacing="0.15"
-                android:maxLines="1"
-                android:textColor="@color/black_3f3a3a"
-                android:textSize="11sp"
-                android:text="@{product.title}"
-                app:layout_constraintEnd_toEndOf="@+id/guideline_center_vert"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Uniqlo 特級超輕羽絨外套"/>
+<!--        <TextView-->
+<!--                android:id="@+id/text_home_title"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginStart="16dp"-->
+<!--                android:ellipsize="end"-->
+<!--                android:fontFamily="@font/noto_sans"-->
+<!--                android:letterSpacing="0.15"-->
+<!--                android:maxLines="1"-->
+<!--                android:textColor="@color/black_3f3a3a"-->
+<!--                android:textSize="11sp"-->
+<!--                android:text="@{product.title}"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/guideline_center_vert"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:text="Uniqlo 特級超輕羽絨外套"/>-->
 
-        <TextView
-                android:id="@+id/text_home_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="16dp"
-                android:ellipsize="end"
-                android:fontFamily="@font/noto_sans"
-                android:letterSpacing="0.15"
-                android:maxLines="2"
-                android:textColor="@color/gray_646464"
-                android:textSize="11sp"
-                android:text="@{product.description}"
-                app:layout_constraintEnd_toEndOf="@+id/text_home_title"
-                app:layout_constraintStart_toStartOf="@+id/text_home_title"
-                app:layout_constraintTop_toBottomOf="@+id/text_home_title"
-                tools:text="How 哥推薦喔 Go Go"/>
+<!--        <TextView-->
+<!--                android:id="@+id/text_home_description"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:ellipsize="end"-->
+<!--                android:fontFamily="@font/noto_sans"-->
+<!--                android:letterSpacing="0.15"-->
+<!--                android:maxLines="2"-->
+<!--                android:textColor="@color/gray_646464"-->
+<!--                android:textSize="11sp"-->
+<!--                android:text="@{product.description}"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/text_home_title"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/text_home_title"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/text_home_title"-->
+<!--                tools:text="How 哥推薦喔 Go Go"/>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

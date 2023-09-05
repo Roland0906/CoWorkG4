@@ -161,20 +161,23 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
 
             _status.value = LoadApiStatus.LOADING
             // It will return Result object after Deferred flow
-            val result = stylishRepository.userSignIn(email, password)
-            if(result != null){
-                _error.value = null
-                _status.value = LoadApiStatus.DONE
-                UserManager.userToken = result.accessToken
-                _user.value = result.user
-                _navigateToLoginSuccess.value = user.value
-                Log.i("testAPI","${result.accessExpired}")
-                Log.i("testAPI","${result.accessToken}")
-            }
-            else{
-                _error.value = getString(R.string.you_know_nothing)
-                _status.value = LoadApiStatus.ERROR
+            try {
+                val result = stylishRepository.userSignIn(email, password)
+                if (result != null) {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    UserManager.userToken = result.accessToken
+                    _user.value = result.user
+                    _navigateToLoginSuccess.value = user.value
+                    Log.i("testAPI", "${result.accessExpired}")
+                    Log.i("testAPI", "${result.accessToken}")
+                } else {
+                    _error.value = getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
 
+                }
+            } catch (e: Exception) {
+                Log.i("Exception", e.toString())
             }
         }
     }
