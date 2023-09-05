@@ -18,8 +18,8 @@ class DefaultStylishRepository(
     private val stylishLocalDataSource: StylishDataSource,
 ) : StylishRepository {
 
-    override suspend fun getMarketingHots(): Result<List<HomeItem>> {
-        return stylishRemoteDataSource.getMarketingHots()
+    override suspend fun getMarketingHots(style: String): Result<List<HomeItem>> {
+        return stylishRemoteDataSource.getMarketingHots(style)
     }
 
     override suspend fun getProductList(type: String, paging: String?): Result<ProductListResult> {

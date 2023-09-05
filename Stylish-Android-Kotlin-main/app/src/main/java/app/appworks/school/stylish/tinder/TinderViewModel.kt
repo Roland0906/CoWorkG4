@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
+import app.appworks.school.stylish.network.StylishApi
 import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.ServiceLocator.stylishRepository
 import kotlinx.coroutines.launch

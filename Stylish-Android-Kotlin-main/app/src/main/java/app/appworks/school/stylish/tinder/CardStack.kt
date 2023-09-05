@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.tinder
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -26,12 +27,13 @@ import kotlin.math.roundToInt
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CardStack(
-    swipeResults : MutableList<Int>,
+    swipeResults: MutableMap<String,Int>,
     modifier: Modifier = Modifier,
     items: MutableList<Item>,
+    styles: MutableList<String>,
     thresholdConfig: (Float, Float) -> ThresholdConfig = { _, _ -> FractionalThreshold(0.2f)},
     velocityThreshold: Dp = 125.dp,
-    onSwipeLeft: (item: Item, swipeResult: MutableList<Int>) -> Unit = { _, _ -> },
+    onSwipeLeft: (item: Item, swipeResult: Map<String,Int>) -> Unit = { _, _ -> },
     onSwipeRight: (item: Item) -> Unit = {},
     onEmptyStack: (lastItem: Item) -> Unit = {}
 ) {
@@ -47,13 +49,14 @@ fun CardStack(
 
     cardStackController.onSwipeLeft = {
         onSwipeLeft(items[i], swipeResults)
-        swipeResults.add(0)
+        Log.i("tinder","i = $i")
         i--
     }
 
     cardStackController.onSwipeRight = {
         onSwipeRight(items[i])
-        swipeResults.add(1)
+        swipeResults[styles[items.size - 1 - i]] = swipeResults[styles[items.size - 1 - i]]!!.plus(1)
+        Log.i("tinder","i = $i")
         i--
     }
 

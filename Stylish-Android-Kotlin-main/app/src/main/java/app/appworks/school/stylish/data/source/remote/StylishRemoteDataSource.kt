@@ -19,7 +19,7 @@ import java.util.Date
  */
 object StylishRemoteDataSource : StylishDataSource {
 
-    override suspend fun getMarketingHots(): Result<List<HomeItem>> {
+    override suspend fun getMarketingHots(style: String): Result<List<HomeItem>> {
 
         if (!isInternetConnected()) {
             return Result.Fail(getString(R.string.internet_not_connected))
@@ -27,7 +27,7 @@ object StylishRemoteDataSource : StylishDataSource {
 
         return try {
             // this will run on a thread managed by Retrofit
-            val listResult = StylishApi.retrofitService.getMarketingHots()
+            val listResult = StylishApi.retrofitService2.getMarketingHotsStyle(style)
 
             listResult.error?.let {
                 return Result.Fail(it)

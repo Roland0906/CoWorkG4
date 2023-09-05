@@ -17,6 +17,7 @@ class TinderSuccessFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         val binding = FragmentTinderSuccessBinding.inflate(inflater, container, false)
         binding.keepBrowsing.setOnClickListener {
             viewModel.tracking("click","tinder_keep_shopping")
@@ -24,7 +25,7 @@ class TinderSuccessFragment: Fragment() {
         }
         binding.signupText.setOnClickListener {
             viewModel.tracking("click","tinder_keep_shopping")
-            findNavController().navigate(NavigationDirections.navigateToProfileFragment())
+            findNavController().navigate(NavigationDirections.navigateToLoginDialog())
         }
         return binding.root
     }

@@ -24,6 +24,7 @@ private const val API_VERSION = "1.0"
 private const val BASE_URL = "https://$HOST_NAME/api/$API_VERSION/"
 private const val BASE_URL2 = "http://$HOST_NAME2/api/$API_VERSION/"
 
+
 //private const val HOST_NAME = "3.113.149.66:8000"
 //private const val HOST_NAME = "api.appworks-school.tw"
 //private const val API_VERSION = "1.0"
@@ -70,9 +71,6 @@ private val retrofit2 = Retrofit.Builder()
     .client(client)
     .build()
 
-
-
-
 /**
  * A public interface that exposes the [getMarketingHots], [getProductList], [getUserProfile],
  * [userSignIn], [checkoutOrder] methods
@@ -84,6 +82,11 @@ interface StylishApiService {
      */
     @GET("marketing/hots")
     suspend fun getMarketingHots(): MarketingHotsResult
+
+    @GET("products/style")
+    suspend fun getMarketingHotsStyle(
+        @Query("style") style: String = "a"
+    ): MarketingHotsResult
 
     /**
      * Returns a Coroutine [Deferred] [ProductListResult] which can be fetched with await() if in a Coroutine scope.
@@ -155,7 +158,7 @@ interface StylishApiService {
     data class TrackUserBody(
         val cid: String,
         @Json(name = "member_id")val memberId: Int?,
-        @Json(name = "device_Os")val deviceOs: String,
+        @Json(name = "device_os")val deviceOs: String,
         @Json(name = "event_date")val eventDate: String,
         @Json(name = "event_timestamp")val eventTimestamp: Int,
         @Json(name = "event_type")val eventType: String,

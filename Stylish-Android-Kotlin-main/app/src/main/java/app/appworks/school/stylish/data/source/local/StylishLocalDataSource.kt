@@ -15,7 +15,7 @@ import java.util.Date
  */
 class StylishLocalDataSource(private val dao: StylishDatabaseDao) : StylishDataSource {
 
-    override suspend fun getMarketingHots(): Result<List<HomeItem>> {
+    override suspend fun getMarketingHots(style: String): Result<List<HomeItem>> {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
 

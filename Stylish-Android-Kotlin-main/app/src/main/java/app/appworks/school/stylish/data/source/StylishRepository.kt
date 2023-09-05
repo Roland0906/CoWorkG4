@@ -12,7 +12,7 @@ import java.util.Date
  */
 interface StylishRepository {
 
-    suspend fun getMarketingHots(): Result<List<HomeItem>>
+    suspend fun getMarketingHots(style: String): Result<List<HomeItem>>
 
     suspend fun getProductList(type: String, paging: String? = null): Result<ProductListResult>
 

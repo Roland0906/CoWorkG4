@@ -95,7 +95,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
             if (isInitial) _status.value = LoadApiStatus.LOADING
 
-            val result = stylishRepository.getMarketingHots()
+            val result = stylishRepository.getMarketingHots(UserManager.marketingStyle)
 
             _homeItems.value = when (result) {
                 is Result.Success -> {

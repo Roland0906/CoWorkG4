@@ -67,6 +67,8 @@ object UserManager {
 
     var member_id = null
 
+    var marketingStyle = "A"
+
     /**
      * Clear the [userToken] and the [user]/[_user] data
      */
