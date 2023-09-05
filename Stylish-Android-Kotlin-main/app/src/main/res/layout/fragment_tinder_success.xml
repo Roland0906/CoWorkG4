@@ -4,7 +4,9 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+                name="viewModel"
+                type="app.appworks.school.stylish.tinder.TinderViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -38,10 +40,10 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/noto_sans"
                 android:gravity="center"
-                android:text="您的結果為日系風格!"
                 android:textColor="#E94057"
                 android:textSize="34sp"
                 android:textStyle="bold"
+                app:textStyle="@{viewModel.styleText}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

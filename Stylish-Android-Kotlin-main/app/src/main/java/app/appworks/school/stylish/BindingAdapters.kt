@@ -449,3 +449,8 @@ fun bindColorByColorCode(imageView: ImageView, colorCode: String?) {
         })
     }
 }
+
+@BindingAdapter("textStyle")
+fun styleText(textView: TextView, style: String) {
+    textView.text = "您的結果為${style}風格!"
+}
