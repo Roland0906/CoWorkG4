@@ -90,37 +90,53 @@ class PaymentViewModel(private val stylishRepository: StylishRepository) : ViewM
         }
     }
 
-
-
-
-    var discountAmount: Int? =
-        if (UserManager.discount != "") {
-            Log.i("DiscountAmount", totalOrderPrice.value?.times(0.3)?.roundToInt().toString())
-            when (UserManager.discount) {
-                "優惠250元" -> {
-                    250
-                }
-                "結帳金額折150元" -> {
-//                    totalOrderPrice.value?.toInt()?.times(0.3)?.roundToInt()
-                    150
-                }
-                else -> {
-                    0
+    var discountAmount = MediatorLiveData<Long>().apply {
+        addSource(totalOrderPrice) {
+            if (UserManager.discount != "") {
+                when (UserManager.discount) {
+                    "優惠250元" -> {
+                        value = 250
+                    }
+                    "結帳金額再七折!" -> {
+                        it?.let { value = it.times(0.3).toLong() }
+                    }
+                    "五折!你是怎麼抽到的?" -> {
+                        it?.let { value = it.times(0.5).toLong() }
+                    }
                 }
             }
-        } else 0
+        }
+    }
+
+
+//    var discountAmount: Int? =
+//        if (UserManager.discount != "") {
+//            when (UserManager.discount) {
+//                "優惠250元" -> { 250 }
+//                "結帳金額折150元!" -> { 150 }
+//                else -> { 0 }
+//            }
+//        } else 0
 
 
     var priceAfterDiscount = MediatorLiveData<Long>().apply {
         addSource(totalOrderPrice) {
-            it?.let { value = it - (discountAmount ?: 0) }
+            it?.let { price ->
+                val discount = discountAmount.value ?: 0
+                value = price - discount
+            }
+        }
+
+        addSource(discountAmount) {
+            it?.let { discount ->
+                val price = totalOrderPrice.value ?: 0
+                value = price - discount
+            }
+
         }
     }
 
 //    var priceAfterDiscount = totalOrderPrice.value?.minus(discountAmount!!)?.toLong()
-
-
-
 
 
     // Handle the error for checkout

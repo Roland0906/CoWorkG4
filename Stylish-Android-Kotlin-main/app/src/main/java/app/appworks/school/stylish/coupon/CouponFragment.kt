@@ -23,7 +23,7 @@ class CouponFragment : Fragment() {
     ): View? {
         val binding = FragmentCouponBinding.inflate(inflater, container, false)
 
-        val discountList = listOf("優惠250元", "結帳金額折150元!")
+        val discountList = listOf("五折!你是怎麼抽到的?")
 
         var randomDiscount = ""
 
