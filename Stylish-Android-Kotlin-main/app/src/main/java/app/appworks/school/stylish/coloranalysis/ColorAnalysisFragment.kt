@@ -7,9 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import app.appworks.school.stylish.NavigationDirections
+import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.Color
 import app.appworks.school.stylish.databinding.FragmentColorAnalysisBinding
+import app.appworks.school.stylish.dialog.MessageDialog
 import app.appworks.school.stylish.ext.getVmFactory
 import app.appworks.school.stylish.login.UserManager
 import kotlinx.coroutines.async
@@ -56,6 +61,34 @@ class ColorAnalysisFragment : Fragment() {
         Log.i("API Testing4", UserManager.getTimeStamp().toString())
         Log.i("API Testing7", viewModel.colorsInString.toString())
         Log.i("API Testing8", viewModel.jsonString)
+
+
+        // add 9/6 11:45
+        viewModel.navigateToAddedSuccess.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(NavigationDirections.navigateToMessageDialog(MessageDialog.MessageType.ADDED_SUCCESS))
+                    viewModel.onAddedSuccessNavigated()
+                }
+            }
+        )
+
+        viewModel.navigateToAddedFail.observe(
+            viewLifecycleOwner,
+            Observer {
+                it?.let {
+                    findNavController().navigate(
+                        NavigationDirections.navigateToMessageDialog(
+                            MessageDialog.MessageType.MESSAGE.apply { value.message = getString(R.string.product_exist) }
+                        )
+                    )
+                    viewModel.onAddedFailNavigated()
+                }
+            }
+        )
+
+
 
 
         binding.buttonSeeResult.setOnClickListener {

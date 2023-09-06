@@ -167,7 +167,7 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
                 stylishRepository.trackUser(UserManager.contentType,
                     StylishApiService.TrackUserBody(
                         UserManager.cid,
-                        UserManager.member_id,
+                        UserManager.userIdFromApi,
                         "Android",
                         UserManager.getDate(),
                         UserManager.getTimeStamp(),

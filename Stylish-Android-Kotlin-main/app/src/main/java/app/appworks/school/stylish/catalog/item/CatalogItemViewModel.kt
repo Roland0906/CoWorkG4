@@ -70,7 +70,7 @@ class CatalogItemViewModel(
                     UserManager.contentType,
                     StylishApiService.TrackUserBody(
                         UserManager.cid,
-                        UserManager.member_id,
+                        UserManager.userIdFromApi,
                         "Android",
                         UserManager.getDate(),
                         UserManager.getTimeStamp(),

@@ -40,6 +40,7 @@ class PaymentFragment : Fragment() {
         binding.recyclerPayment.adapter = PaymentAdapter(viewModel)
         binding.viewModel = viewModel
         viewModel.tracking("view")
+
         viewModel.checkoutSuccess.observe(
             viewLifecycleOwner,
             Observer {
@@ -90,6 +91,7 @@ class PaymentFragment : Fragment() {
                 }
             }
         )
+
 
         return binding.root
     }

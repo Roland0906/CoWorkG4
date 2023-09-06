@@ -48,6 +48,9 @@ class ProfileFragment : Fragment() {
         binding.buttonProfileStarred.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToTinderSuccessFragment())
         }
+        binding.buttonCoupon.setOnClickListener {
+            findNavController().navigate(NavigationDirections.navigateToCouponFragment())
+        }
 
 
         if (viewModel.user.value == null) {

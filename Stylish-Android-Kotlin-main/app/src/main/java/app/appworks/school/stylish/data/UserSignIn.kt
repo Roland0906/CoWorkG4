@@ -13,3 +13,10 @@ data class UserSignIn(
     @Json(name = "access_expired") val accessExpired: Int,
     val user: User
 ) : Parcelable
+
+//@Parcelize
+//data class UserSignInData(
+//    @Json(name = "access_token") val accessToken: String,
+//    @Json(name = "access_expired") val accessExpired: Int,
+//    val user: User
+//) : Parcelable

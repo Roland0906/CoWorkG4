@@ -126,7 +126,7 @@ class Add2cartViewModel(
                     UserManager.contentType,
                     StylishApiService.TrackUserBody(
                         UserManager.cid,
-                        UserManager.member_id,
+                        UserManager.userIdFromApi,
                         "Android",
                         UserManager.getDate(),
                         UserManager.getTimeStamp(),
@@ -170,7 +170,7 @@ class Add2cartViewModel(
                     UserManager.contentType,
                     StylishApiService.TrackUserBody(
                         UserManager.cid,
-                        UserManager.member_id,
+                        UserManager.userIdFromApi,
                         "Android",
                         UserManager.getDate(),
                         UserManager.getTimeStamp(),

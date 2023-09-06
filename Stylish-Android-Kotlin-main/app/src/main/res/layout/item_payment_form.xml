@@ -368,13 +368,47 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="NT$0"/>
 
+            <TextView
+                    android:id="@+id/text_discount_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:letterSpacing="0.15"
+                    android:textColor="@color/gray_646464"
+                    android:textSize="16sp"
+                    android:text="@string/discount_title"
+                    app:layout_constraintTop_toBottomOf="@+id/text_payment_total_freight_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                    android:id="@+id/text_discount_amount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:letterSpacing="0.15"
+                    android:textColor="@color/black_3f3a3a"
+                    android:textSize="16sp"
+                    app:price="@{viewModel.discountAmount}"
+                    app:layout_constraintTop_toTopOf="@+id/text_discount_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/text_discount_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="NT$0"/>
+
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_payment_total_products"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/height_payment_editor"
                     android:layout_marginTop="24dp"
                     android:background="@color/black_3f3a3a"
-                    app:layout_constraintTop_toBottomOf="@+id/text_payment_total_freight_title"
+                    app:layout_constraintTop_toBottomOf="@+id/text_discount_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
@@ -402,11 +436,13 @@
                         android:letterSpacing="0.15"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        app:price="@{viewModel.totalOrderPrice}"
+                        app:price="@{viewModel.priceAfterDiscount}"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         tools:text="NT$9527"/>
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
