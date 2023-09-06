@@ -112,6 +112,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     UserManager.userToken = result.data.userSignIn?.accessToken
+                    UserManager.userIdFromApi = result.data.userSignIn?.user?.id
                     _user.value = result.data.userSignIn?.user
                     _navigateToLoginSuccess.value = user.value
                 }
@@ -142,7 +143,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     UserManager.contentType,
                     StylishApiService.TrackUserBody(
                         UserManager.cid,
-                        UserManager.member_id,
+                        UserManager.userIdFromApi,
                         "Android",
                         UserManager.getDate(),
                         UserManager.getTimeStamp(),
@@ -168,13 +169,13 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                 if (result != null) {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
-                    UserManager.userToken = result.accessToken
-                    UserManager.member_id = result.user.id
-                    _user.value = result.user
+                    UserManager.userToken = result?.accessToken
+                    UserManager.userIdFromApi = result?.user?.id
+                    _user.value = result?.user
                     _navigateToLoginSuccess.value = user.value
-                    stylishRepository.getUserProfile("Bearer ${UserManager.userToken}")
-                    Log.i("testAPI", "${result.accessExpired}")
-                    Log.i("testAPI", "${result.accessToken}")
+                    stylishRepository.getUserProfile("Bearer ${result?.accessToken}")
+                    Log.i("testAPI", "${result?.accessExpired}")
+                    Log.i("testAPI", "${result?.accessToken}")
                 } else {
                     _error.value = getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
@@ -200,8 +201,8 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     UserManager.userToken = result.data.userSignIn?.accessToken
-                    UserManager.member_id = result.data.userSignIn!!.user.id
-                    _user.value = result.data.userSignIn.user
+                    UserManager.userIdFromApi = result.data.userSignIn?.user?.id
+                    _user.value = result.data.userSignIn?.user
                     _navigateToLoginSuccess.value = user.value
                 }
 

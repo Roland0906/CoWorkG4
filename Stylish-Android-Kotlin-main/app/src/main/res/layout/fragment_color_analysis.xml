@@ -46,11 +46,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:text="@{viewModel.product.title}"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
                     android:textSize="16sp"
+                    android:elevation="5dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ca_pic"
+                    app:layout_constraintBottom_toBottomOf="@id/ca_pic"
                     tools:text="Roger Federer Racket" />
 
             <TextView
@@ -60,21 +63,10 @@
                     android:layout_marginTop="16dp"
                     android:text="@string/toRecommendColor"
                     android:textSize="16sp"
+                    android:elevation="5dp"
                     app:layout_constraintStart_toStartOf="@+id/title"
-                    app:layout_constraintTop_toBottomOf="@id/title"
+                    app:layout_constraintTop_toBottomOf="@id/ca_pic"
                     tools:text="為您分析適合的商品顏色" />
-
-            <View
-                    android:id="@+id/divider"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@color/gray_cccccc"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/to_recommend" />
 
 
             <TextView
@@ -90,20 +82,20 @@
                     android:textColor="@color/gray_646464"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/divider" />
+                    app:layout_constraintTop_toBottomOf="@+id/to_recommend" />
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_your_hair_color_selector"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="200dp"
                     android:orientation="horizontal"
                     app:addDecoration="@{viewModel.decoration}"
                     app:colors="@{viewModel.hairColors}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/recycler_your_skin_color_selector"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/text_your_hair_color">
 
@@ -113,8 +105,6 @@
                     android:id="@+id/text_your_skin_color"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/noto_sans"
                     android:letterSpacing="0.15"
@@ -122,24 +112,23 @@
                     android:textColor="@color/gray_646464"
                     android:textSize="14sp"
                     android:visibility="@{(viewModel.selectedColor != null ? View.VISIBLE : View.GONE)}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recycler_your_hair_color_selector" />
+                    app:layout_constraintStart_toStartOf="@id/recycler_your_skin_color_selector"
+                    app:layout_constraintTop_toTopOf="@+id/text_your_hair_color" />
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_your_skin_color_selector"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="200dp"
                     android:orientation="horizontal"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="8dp"
                     android:visibility="@{(viewModel.selectedColor != null ? View.VISIBLE : View.GONE)}"
                     app:addDecoration="@{viewModel.decoration}"
                     app:colors="@{viewModel.skinColors}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_your_skin_color">
+                    app:layout_constraintStart_toEndOf="@+id/recycler_your_hair_color_selector"
+                    app:layout_constraintTop_toTopOf="@+id/recycler_your_hair_color_selector">
 
             </androidx.recyclerview.widget.RecyclerView>
 
