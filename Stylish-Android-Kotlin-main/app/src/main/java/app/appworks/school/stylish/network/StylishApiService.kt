@@ -183,9 +183,9 @@ interface StylishApiService {
 
     @GET("best_seller")
     suspend fun getBestSeller(
-        @Header("time_now") timeNow: String,
+//        @Header("time_now") timeNow: String,
         @Header("time_range") timeRange: String,
-    )
+    ):BestSeller
 
 
 }

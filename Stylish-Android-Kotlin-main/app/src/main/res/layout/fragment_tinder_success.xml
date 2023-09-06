@@ -51,7 +51,7 @@
         <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="262dp"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/signupText"
                 app:layout_constraintEnd_toEndOf="parent"

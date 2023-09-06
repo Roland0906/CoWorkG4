@@ -14,16 +14,19 @@
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/layout_swipe_refresh_home"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/marquee">
 
             <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_home"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:nextFocusDown="@id/marquee"
+                    android:nextFocusForward="@id/marquee"
                     app:homeItems="@{viewModel.homeItems}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
 
@@ -48,5 +51,35 @@
                   app:layout_constraintEnd_toEndOf="parent"
                   app:layout_constraintTop_toTopOf="parent"
                   app:layout_constraintBottom_toBottomOf="parent"/>
+
+<!--        <TextView-->
+<!--                android:id="@+id/marquee"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/abtesting_background"-->
+<!--                android:ellipsize="marquee"-->
+<!--                android:focusable="true"-->
+<!--                android:focusableInTouchMode="true"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:marqueeRepeatLimit="marquee_forever"-->
+<!--                android:scrollHorizontally="true"-->
+<!--                android:singleLine="true"-->
+<!--                android:textColor="#FEFEFE"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <app.appworks.school.stylish.MarqueeTextView
+                android:id="@+id/marquee"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/abtesting_background"
+                android:text= "Kotlin 實現文本橫向滾動，跑馬燈效果。"
+                app:marqueeRepeat= "fillLoop"
+                app:marqueeSpeed= "5"
+                android:layout_marginBottom= "16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

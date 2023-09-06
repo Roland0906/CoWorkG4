@@ -71,13 +71,16 @@ fun CardStack(
 
         // Title Composable
         Text(
-            text = "您喜歡哪一種風格?",
+            text = "您喜歡哪一種\n      風格?",
+
             modifier = Modifier.constrainAs(title) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
                 end.linkTo(parent.end)
-            }.padding(20.dp),
-            color = peachPink
+            }.padding(20.dp).wrapContentHeight(),
+
+            color = peachPink,
+            fontSize = 30.sp
         )
 
         Box(
