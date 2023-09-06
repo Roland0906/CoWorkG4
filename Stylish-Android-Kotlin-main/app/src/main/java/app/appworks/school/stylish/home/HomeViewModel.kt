@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.HomeItem
@@ -12,12 +13,15 @@ import app.appworks.school.stylish.data.Result
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.LoadApiStatus
+import app.appworks.school.stylish.network.StylishApi
 import app.appworks.school.stylish.network.StylishApiService
 import app.appworks.school.stylish.util.Logger
 import app.appworks.school.stylish.util.Util.getString
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
@@ -33,9 +37,11 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
     private val _homeItems = MutableLiveData<List<HomeItem>>()
 
+    var resultText = MutableLiveData<String>("")
+
     val homeItems: LiveData<List<HomeItem>>
         get() = _homeItems
-
+    private var apiJob: Job? = null
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -85,6 +91,34 @@ class HomeViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
         getMarketingHotsResult(true)
     }
+
+    fun startApiCalls() {
+        apiJob = viewModelScope.launch {
+            while (isActive) {
+                try {
+//                    withContext(Dispatchers.IO) {
+                    val currentThread = Thread.currentThread()
+                    // Replace with your API call
+                    Log.i("BestSellerApi", "ApiCalled!")
+                    Log.i("BestSellerApi", "${currentThread.name}")
+                    var result = StylishApi.retrofitService2.getBestSeller("300")
+                    resultText.value =
+                        "${result.data.productTitle}剛剛已售出${result.data.sold}件!                                                    "
+
+                    delay(12000) // Delay for 10 seconds before the next API call
+                } catch (e: Exception) {
+                    // Handle API call failure here
+                    delay(12000)
+                }
+            }
+        }
+    }
+
+    fun stopApiCalls() {
+        apiJob?.cancel() // Cancel the coroutine job when the fragment is paused
+        Log.i("BestSellerApi", "StopApi!")
+    }
+
 
     /**
      * track [StylishRepository.getMarketingHots]: -> [DefaultStylishRepository] : [StylishRepository] -> [StylishRemoteDataSource] : [StylishDataSource]

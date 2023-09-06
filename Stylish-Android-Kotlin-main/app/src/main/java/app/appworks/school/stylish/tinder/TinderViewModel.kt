@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.appworks.school.stylish.R
 import app.appworks.school.stylish.data.source.StylishRepository
 import app.appworks.school.stylish.login.UserManager
 import app.appworks.school.stylish.network.StylishApi
@@ -18,6 +19,16 @@ class TinderViewModel(private val stylishRepository: StylishRepository): ViewMod
             "C" -> "休閒"
             else -> "簡約"
         }
+    val stylePicture = MutableLiveData<Int>()
+
+    init {
+        stylePicture.value =
+            when(UserManager.marketingStyle){
+            "B" -> R.drawable.tracey
+            "C" -> R.drawable.fin
+            else -> R.drawable.hao
+        }
+    }
     fun tracking(type: String, event_value: String) {
         // memberId -> get its unique ID saved when user first signed up
         viewModelScope.launch {

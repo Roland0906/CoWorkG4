@@ -105,7 +105,7 @@ object UserManager {
         }
     }
     fun getTimeStamp(): Int{
-        return System.currentTimeMillis().toInt()
+        return (Date().time/1000).toInt()
     }
     fun getDate():String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")

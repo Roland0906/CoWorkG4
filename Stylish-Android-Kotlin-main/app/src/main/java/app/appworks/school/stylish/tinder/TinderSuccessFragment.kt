@@ -17,8 +17,8 @@ class TinderSuccessFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         val binding = FragmentTinderSuccessBinding.inflate(inflater, container, false)
+
         binding.viewModel = viewModel
         binding.keepBrowsing.setOnClickListener {
             viewModel.tracking("click","tinder_keep_shopping")
@@ -28,6 +28,10 @@ class TinderSuccessFragment: Fragment() {
             viewModel.tracking("click","tinder_keep_shopping")
             findNavController().navigate(NavigationDirections.navigateToLoginDialog())
         }
+
+        binding.imageView.setImageResource(viewModel.stylePicture.value!!)
+
+
         return binding.root
     }
 }

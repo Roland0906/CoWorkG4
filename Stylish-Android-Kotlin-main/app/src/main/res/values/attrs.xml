@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="MarqueeTextView">
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+        <attr name="android:text" />
+        <!--循環模式-->
+        <attr name="marqueeRepeat" format="enum">
+            <!-- 播放一次-->
+            <enum name="single" value="1" />
+            <!-- 單項循環-->
+            <enum name="singleLoop" value="0" />
+            <!-- 填充後循環-->
+            <enum name="fillLoop" value="-1" />
+        </attr>
+        <!--每個item之間的距離-->
+        <attr name="marqueeItemDistance" format="dimension" />
+        <!--開始的起始位置按距離控件左邊的百分比0~1之間-->
+        <attr name="marqueeStartLocationDistance" format="float" />
+        <!--播放速度也就是文字滾動速度-->
+        <attr name="marqueeSpeed" format="float" />
+        <!--重新改變內容的時候， 是否初始化位置，默認為true，改變-->
+        <attr name="marqueeResetLocation" format="boolean" />
+    </declare-styleable>
+
+</resources>

@@ -19,6 +19,8 @@ import java.nio.file.DirectoryIteratorException
 /**
  * Created by Wayne Chen in Jul. 2019.
  */
+
+
 class ProfileFragment : Fragment() {
 
     /**
@@ -32,6 +34,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 //        init()
+
         val binding = FragmentProfileBinding.inflate(inflater, container, false)
 
         viewModel.tracking("view")
