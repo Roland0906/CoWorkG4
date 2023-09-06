@@ -169,6 +169,7 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     UserManager.userToken = result.accessToken
+                    UserManager.member_id = result.user.id
                     _user.value = result.user
                     _navigateToLoginSuccess.value = user.value
                     stylishRepository.getUserProfile("Bearer ${UserManager.userToken}")
@@ -199,7 +200,8 @@ class LoginViewModel(private val stylishRepository: StylishRepository) : ViewMod
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     UserManager.userToken = result.data.userSignIn?.accessToken
-                    _user.value = result.data.userSignIn?.user
+                    UserManager.member_id = result.data.userSignIn!!.user.id
+                    _user.value = result.data.userSignIn.user
                     _navigateToLoginSuccess.value = user.value
                 }
 

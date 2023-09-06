@@ -37,7 +37,7 @@ fun CatalogItemScreen(products: LazyPagingItems<Product>, onClick: (Product) -> 
         columns = GridCells.Fixed(2),
         modifier = Modifier
             .padding(vertical = 8.dp)
-            .background(brush = Brush.linearGradient(colors = listOf(darkBlue, black), start = Offset(0f, 100f), end = Offset(0f, 0f))),
+            .background(brush = Brush.linearGradient(colors = listOf(darkBlue, black), start = Offset(0f, 75f), end = Offset(0f, 0f))),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -60,7 +60,7 @@ val black = Color(0xFF1F2C52)
 fun GridCatalogItem(product: Product, onClick: (Product) -> Unit) {
     ConstraintLayout(
         modifier = Modifier
-            .background(brush = Brush.linearGradient(colors = listOf(darkBlue, black), start = Offset(0f, 100f), end = Offset(0f, 0f)))
+            .background(brush = Brush.linearGradient(colors = listOf(darkBlue, black), start = Offset(0f, 75f), end = Offset(0f, 0f)))
             .wrapContentHeight()
             .wrapContentWidth()
             .clickable(
