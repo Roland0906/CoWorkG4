@@ -117,7 +117,7 @@ class ProfileViewModel(
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = stylishRepository.getUserProfile(token)
+            val result = stylishRepository.getUserProfile("Bearer $token")
 
             _user.value = when (result) {
 

@@ -1,5 +1,6 @@
 package app.appworks.school.stylish.catalog.item.compose
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -9,6 +10,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -20,6 +24,7 @@ import androidx.paging.compose.LazyPagingItems
 import app.appworks.school.stylish.data.Product
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
+import androidx.compose.ui.res.*
 
 import app.appworks.school.stylish.R
 import app.appworks.school.stylish.StylishApplication
@@ -27,9 +32,12 @@ import app.appworks.school.stylish.StylishApplication
 
 @Composable
 fun CatalogItemScreen(products: LazyPagingItems<Product>, onClick: (Product) -> Unit) {
+
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = Modifier
+            .padding(vertical = 8.dp)
+            .background(brush = Brush.linearGradient(colors = listOf(darkBlue, black), start = Offset(0f, 75f), end = Offset(0f, 0f))),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
@@ -44,11 +52,15 @@ fun CatalogItemScreen(products: LazyPagingItems<Product>, onClick: (Product) -> 
     }
 }
 
+val darkBlue = Color(0xFF060813)
+val black = Color(0xFF1F2C52)
+
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun GridCatalogItem(product: Product, onClick: (Product) -> Unit) {
     ConstraintLayout(
         modifier = Modifier
+            .background(brush = Brush.linearGradient(colors = listOf(darkBlue, black), start = Offset(0f, 75f), end = Offset(0f, 0f)))
             .wrapContentHeight()
             .wrapContentWidth()
             .clickable(
@@ -85,7 +97,7 @@ fun GridCatalogItem(product: Product, onClick: (Product) -> Unit) {
                     width = Dimension.fillToConstraints
                     height = Dimension.wrapContent
                 },
-            color = colorResource(id = R.color.black_3f3a3a),
+            color = colorResource(id = R.color.white),
             fontSize = 15.sp,
             letterSpacing = 0.15f.sp,
             maxLines = 2,
@@ -103,7 +115,7 @@ fun GridCatalogItem(product: Product, onClick: (Product) -> Unit) {
                     width = Dimension.fillToConstraints
                     height = Dimension.wrapContent
                 },
-            color = colorResource(id = R.color.gray_646464),
+            color = colorResource(id = R.color.white),
             fontSize = 15.sp,
             letterSpacing = 0.15f.sp,
             maxLines = 1,

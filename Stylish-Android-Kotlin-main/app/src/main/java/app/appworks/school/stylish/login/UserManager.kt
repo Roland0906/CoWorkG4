@@ -50,6 +50,7 @@ object UserManager {
             }
         }
 
+
     /**
      * It can be use to check login status directly
      */
@@ -65,9 +66,9 @@ object UserManager {
 
     var split_testing = "fashionable"
 
-    var member_id = null
+    var member_id: Int = -1
 
-    var marketingStyle = "A"
+    var marketingStyle = "B"
 
     /**
      * Clear the [userToken] and the [user]/[_user] data

@@ -160,7 +160,7 @@ class MainViewModel(private val stylishRepository: StylishRepository) : ViewMode
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = stylishRepository.getUserProfile(token)
+            val result = stylishRepository.getUserProfile("Bearer $token")
 
             _user.value = when (result) {
 

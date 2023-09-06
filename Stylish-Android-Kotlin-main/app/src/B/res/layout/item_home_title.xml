@@ -9,6 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_home_title"
             android:layout_width="match_parent"
+            android:background="@drawable/abtesting_background"
             android:layout_height="wrap_content">
 
         <TextView
@@ -16,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:ellipsize="end"
@@ -26,9 +27,9 @@
                 android:maxWidth="328dp"
                 android:paddingStart="4dp"
                 android:paddingEnd="4dp"
-                android:textColor="@color/black_3f3a3a"
-                android:textStyle="bold"
+                android:textColor="@color/white"
                 android:textSize="18sp"
+                android:textStyle="bold"
                 android:text="@{title}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
