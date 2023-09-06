@@ -181,6 +181,12 @@ interface StylishApiService {
     @POST("color_picker")
     suspend fun colorPicker(@Body request: ColorPickerRequest): ColorPickerResult
 
+    @GET("best_seller")
+    suspend fun getBestSeller(
+        @Header("time_now") timeNow: String,
+        @Header("time_range") timeRange: String,
+    )
+
 
 }
 
