@@ -20,12 +20,36 @@ object UserManager {
 
     private const val USER_DATA = "user_data"
     private const val USER_TOKEN = "user_token"
+    private const val USER_ID = "user_id"
 
 
     private val _user = MutableLiveData<User>()
 
     val user: LiveData<User>
         get() = _user
+
+    var userIdFromApi: Int? = null
+        get() = StylishApplication.instance
+            .getSharedPreferences(USER_DATA, Context.MODE_PRIVATE)
+            .getInt(USER_ID, 0)
+        set(value) {
+            field = when (value) {
+                null -> {
+                    StylishApplication.instance
+                        .getSharedPreferences(USER_ID, Context.MODE_PRIVATE).edit()
+                        .remove(USER_ID)
+                        .apply()
+                    null
+                }
+                else -> {
+                    StylishApplication.instance
+                        .getSharedPreferences(USER_ID, Context.MODE_PRIVATE).edit()
+                        .putInt(USER_ID, value)
+                        .apply()
+                    value
+                }
+            }
+        }
 
     var userToken: String? = null
         get() = StylishApplication.instance
@@ -66,9 +90,16 @@ object UserManager {
 
     var split_testing = "fashionable"
 
-    var member_id: Int = -1
+    var member_id: Int? = null
 
     var marketingStyle = "B"
+
+    var discount = ""
+
+    enum class Discount(price: Int) {
+        TWO(200),
+        THREE(30)
+    }
 
     /**
      * Clear the [userToken] and the [user]/[_user] data
@@ -105,7 +136,7 @@ object UserManager {
         }
     }
     fun getTimeStamp(): Int{
-        return System.currentTimeMillis().toInt()
+        return ((Date().time/1000).toInt())
     }
     fun getDate():String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")

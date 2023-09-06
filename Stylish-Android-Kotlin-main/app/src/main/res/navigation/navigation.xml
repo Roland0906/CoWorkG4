@@ -149,6 +149,8 @@
     <action android:id="@+id/navigate_to_message_dialog" app:destination="@id/messageDialog"/>
     <action android:id="@+id/navigate_to_add2cart_dialog" app:destination="@id/add2cartDialog"/>
 
+    <action android:id="@+id/navigate_to_coupon_fragment" app:destination="@id/couponFragment"/>
+
 
     <action
             android:id="@+id/navigate_to_color_analysis_fragment"
@@ -157,5 +159,11 @@
             android:id="@+id/tinderSuccessFragment"
             android:name="app.appworks.school.stylish.tinder.TinderSuccessFragment"
             android:label="TinderSuccessFragment" />
+    <fragment
+            android:id="@+id/couponFragment"
+            android:name="app.appworks.school.stylish.coupon.CouponFragment"
+            android:label="CouponFragment" />
+
+
 
 </navigation>

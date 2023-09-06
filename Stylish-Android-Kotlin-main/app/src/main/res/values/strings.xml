@@ -45,6 +45,16 @@
     <string name="system_feedback">系統回饋</string>
     <string name="register_phone">手機綁定</string>
     <string name="settings">設定</string>
+    <string name="drawCoupon">抽獎</string>
+
+
+    <!-- Coupon -->
+    <string name="coupon10">10%優惠券</string>
+    <string name="use_coupon">使用優惠券</string>
+
+
+
+
 
     <!-- Detail -->
     <string name="color">顏色</string>
@@ -68,8 +78,6 @@
     <string name="your_skin_color">您的膚色</string>
     <string name="see_result">看看分析結果吧</string>
     <string name="result">這個顏色跟你是絕配！</string>
-
-
 
 
     <!-- Cart -->
@@ -96,6 +104,7 @@
     <string name="select_payment_method">選擇付款方式</string>
     <string name="total_price">商品總金額</string>
     <string name="total_freight">運費總金額</string>
+    <string name="discount_title">優惠券折扣金額</string>
     <string name="total_products">總計 (%d樣商品)</string>
     <string name="tpd_card_number_error">Invalid Card Number</string>
     <string name="tpd_expiration_date_error">Invalid Expiration Date</string>
